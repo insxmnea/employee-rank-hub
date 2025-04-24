@@ -1,0 +1,26 @@
+@import "https://www.nerdfonts.com/assets/css/webfont.css";
+
+:root {
+  --box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+  --color-primary: #07b1a9;
+  --color-bg-dark: #282828;
+  --color-fg-dark: #ebdbb2;
+
+  --color-bg-light: #fbf1c7;
+  --color-fg-light: #3c3836;
+
+  color-scheme: light dark;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: ui-monospace, monospace;
+}
+
+body {
+  background-color: light-dark(var(--color-bg-light), var(--color-bg-dark));
+  color: light-dark(var(--color-fg-light), var(--color-fg-dark));
+}
