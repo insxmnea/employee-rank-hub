@@ -10,7 +10,7 @@ export const EmployeeTree = () => {
   const renderNode = ({ nodeDatum }: { nodeDatum: any }) => (
     <g className={styles.node}>
       <circle fill={getRatingColor(nodeDatum.rating)} r={20} />
-      <text fill="white" dy=".3em">
+      <text fill="black" dy=".3em" strokeWidth="1">
         {nodeDatum.name}
       </text>
     </g>

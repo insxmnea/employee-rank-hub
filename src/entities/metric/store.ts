@@ -11,6 +11,37 @@ type MetricStore = {
   };
 };
 
+const initialMetrics: Metric[] = [
+  {
+    id: "performance",
+    name: "Производительность",
+    weight: 40,
+    selected: true,
+    // model: "linear",
+  },
+  {
+    id: "competence",
+    name: "Компетенции",
+    weight: 30,
+    selected: true,
+    // model: "cluster",
+  },
+  {
+    id: "teamwork",
+    name: "Командная работа",
+    weight: 20,
+    selected: false,
+    // model: null,
+  },
+  {
+    id: "loyalty",
+    name: "Лояльность",
+    weight: 10,
+    selected: false,
+    // model: null,
+  },
+];
+
 export const useMetricStore = create<MetricStore>((set) => ({
   metrics: initialMetrics,
   selectedModel: null,

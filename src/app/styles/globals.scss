@@ -3,14 +3,21 @@
 :root {
   --box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
-  --color-primary: #07b1a9;
+  --color-primary: #458588;
   --color-bg-dark: #282828;
+  --color-bg0-h-dark: #1d2021;
   --color-bg1-dark: #3c3836;
   --color-fg-dark: #ebdbb2;
 
   --color-bg-light: #fbf1c7;
+  --color-bg0-h-light: #f9f5d7;
   --color-bg1-light: #ebdbb2;
   --color-fg-light: #3c3836;
+
+  --wrapper-horizontal-padding: 32px;
+
+  --header-height: 80px;
+  --footer-height: 80px;
 
   color-scheme: light dark;
 }
@@ -25,4 +32,15 @@
 body {
   background-color: light-dark(var(--color-bg-light), var(--color-bg-dark));
   color: light-dark(var(--color-fg-light), var(--color-fg-dark));
+}
+
+a {
+  color: light-dark(var(--color-fg-light), var(--color-fg-dark));
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: var(--color-primary);
+  }
 }
