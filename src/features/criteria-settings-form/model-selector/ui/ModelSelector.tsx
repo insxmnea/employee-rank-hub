@@ -1,6 +1,8 @@
-import { Select } from "shared/ui/select";
-import { ML_MODELS } from "entities/metric/constants";
+// import { Select } from "shared/ui/select";
+// import { ML_MODELS } from "entities/metric/constants";
+import { Select } from "@react-three/drei";
 import styles from "./ModelSelector.module.scss";
+import { useMetricStore } from "src/entities/metric/store";
 
 export const ModelSelector = () => {
   const { selectedModel, setModel } = useMetricStore();

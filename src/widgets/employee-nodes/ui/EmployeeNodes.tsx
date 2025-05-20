@@ -5,6 +5,16 @@ import { useEmployeeStore } from "src/entities/employee/store";
 export const EmployeeNodes = () => {
   const { employees } = useEmployeeStore();
 
+  const getRatingColor = (rating: number) => {
+    if (rating < 2) {
+      return "red";
+    } else if (rating < 4) {
+      return "orange";
+    } else {
+      return "green";
+    }
+  };
+
   return (
     <group>
       {employees.map((emp, idx) => (
