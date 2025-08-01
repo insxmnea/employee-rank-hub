@@ -1,13 +1,17 @@
 import { Link, Route, Routes } from "react-router";
 import { Counter } from "./components/Counter";
-import "./index.scss";
+import "./styles/index.scss";
 import { MainPageAsync } from "./pages/MainPage/MainPage.async";
 import { AboutPageAsync } from "./pages/AboutPage/AboutPage.async";
 import { Suspense } from "react";
+import { useTheme } from "./theme/useTheme";
 
 export const App = () => {
+  const { theme, toggleTheme } = useTheme();
+
   return (
-    <div className="app">
+    <div className={`app ${theme}`}>
+      <button onClick={toggleTheme}>Switch theme</button>
       <Counter />
       <Link to={"/"}>Main page</Link>
       <Link to={"/about"}>About page</Link>
