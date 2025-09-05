@@ -8,12 +8,12 @@ export function buildResolvers(options: BuildOptions): ResolveOptions {
     modules: [options.paths.src, "node_modules"],
     mainFiles: ["index"],
     alias: {
-      "@app/*": "./app/*",
-      "@pages/*": "./pages/*",
-      "@widgets/*": "./widgets/*",
-      "@features/*": "./features/*",
-      "@entities/*": "./entities/*",
-      "@shared/*": "./shared/*",
+      "@app/*": "app/*",
+      "@pages/*": "pages/*",
+      "@widgets/*": "widgets/*",
+      "@features/*": "features/*",
+      "@entities/*": "entities/*",
+      "@shared/*": "shared/*",
     },
   };
 }
