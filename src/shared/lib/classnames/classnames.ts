@@ -1,14 +1,9 @@
 type Mods = Record<string, boolean | string>;
 
-const obj: Mods = {
-  "123": true,
-  "12": "sdf",
-};
-
 export const classnames = (
   cls: string,
-  mods: Mods,
-  additional: string[]
+  mods: Mods = {},
+  additional: string[] = []
 ): string => {
   return [
     cls,
