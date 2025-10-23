@@ -2,6 +2,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router";
 import { App } from "@app/App";
 import { ThemeProvider } from "@app/providers/theme";
+import "@shared/config/i18n/i18n";
 
 const root = createRoot(document.getElementById("root"));
 

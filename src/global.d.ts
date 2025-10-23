@@ -15,3 +15,5 @@ declare module "*.svg" {
   const content: FC<SVGProps<SVGSVGElement>>;
   export default content;
 }
+
+declare const __IS_DEV__: boolean;
