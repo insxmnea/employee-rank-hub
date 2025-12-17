@@ -1,10 +1,7 @@
 import { useTranslation } from "react-i18next";
-import * as styles from "./LanguageSwitcher.module.scss";
 import { Button } from "@shared/ui/Button";
 
-interface LanguageSwitcherProps {}
-
-export const LanguageSwitcher = (props: LanguageSwitcherProps) => {
+export const LanguageSwitcher = () => {
   const { t, i18n } = useTranslation();
 
   const handleClick = () => {
