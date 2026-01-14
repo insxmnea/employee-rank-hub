@@ -6,9 +6,7 @@ import { ThemeSwitcher } from "@widgets/theme-switcher";
 import { LanguageSwitcher } from "@widgets/language-switcher";
 import { useTranslation } from "react-i18next";
 
-interface SidebarProps {}
-
-export const Sidebar = (props: SidebarProps) => {
+export const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
   const { t } = useTranslation();
 
