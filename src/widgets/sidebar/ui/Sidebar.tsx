@@ -16,11 +16,14 @@ export const Sidebar = () => {
 
   return (
     <div
+      data-testid="sidebar"
       className={classnames(styles.Sidebar, { [styles.collapsed]: collapsed })}
     >
       <ThemeSwitcher />
       <LanguageSwitcher />
-      <Button onClick={onToggle}>{t("collapse sidebar")}</Button>
+      <Button data-testid="sidebar-toggle" onClick={onToggle}>
+        {t("collapse sidebar")}
+      </Button>
     </div>
   );
 };

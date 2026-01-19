@@ -22,4 +22,10 @@ export default defineConfig([
       "@typescript-eslint/no-empty-object-type": "warn",
     },
   },
+  {
+    files: ["**/src/**/*.test.{ts,tsx}"],
+    rules: {
+      "i18next/no-literal-string": "off",
+    },
+  },
 ]);

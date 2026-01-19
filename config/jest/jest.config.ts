@@ -51,6 +51,8 @@ const config: Config = {
     "<rootDir>src/**/*(*.)@(spec|test).[tj]s?(x)",
   ],
 
+  setupFilesAfterEnv: ["<rootDir>config/jest/setupTests.ts"],
+
   // Indicates whether the coverage information should be collected while executing the test
   // collectCoverage: false,
 
@@ -101,7 +103,16 @@ const config: Config = {
   // maxWorkers: "50%",
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  // moduleNameMapper: {},
+  moduleNameMapper: {
+    "^@app/(.*)$": "<rootDir>/src/app/$1",
+    "^@pages/(.*)$": "<rootDir>/src/pages/$1",
+    "^@widgets/(.*)$": "<rootDir>/src/widgets/$1",
+    "^@features/(.*)$": "<rootDir>/src/features/$1",
+    "^@entities/(.*)$": "<rootDir>/src/entities/$1",
+    "^@shared/(.*)$": "<rootDir>/src/shared/$1",
+    "\\.s?css$": "<rootDir>config/jest/identity-obj-proxy-esm.ts",
+    "\\.svg": "<rootDir>/config/jest/jestEmptyComponent.tsx",
+  },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
