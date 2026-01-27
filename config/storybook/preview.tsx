@@ -1,6 +1,7 @@
 import type { Preview } from "@storybook/react-webpack5";
 import { StyleDecorator } from "../../src/shared/config/storybook/StyleDecorator/StyleDecorator";
 import { ThemeDecorator } from "../../src/shared/config/storybook/ThemeDecorator/ThemeDecorator";
+import { RouterDecorator } from "../../src/shared/config/storybook/RouterDecorator/RouterDecorator";
 import { Theme } from "../../src/app/providers/theme/lib/ThemeContext";
 
 const preview: Preview = {
@@ -12,7 +13,7 @@ const preview: Preview = {
       },
     },
   },
-  decorators: [StyleDecorator, ThemeDecorator(Theme.LIGHT)],
+  decorators: [StyleDecorator, ThemeDecorator(Theme.LIGHT), RouterDecorator],
 };
 
 export default preview;
