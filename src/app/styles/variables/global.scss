@@ -4,7 +4,8 @@
   // --- Font-sizes
   --font-size-xxs: 5px;
   --font-line-xxs: 13px;
-  --font-xxs: var(--font-size-xxs) / var(--font-line-xxs) var(--font-family-main);
+  --font-xxs: var(--font-size-xxs) / var(--font-line-xxs)
+    var(--font-family-main);
 
   // xs
   --font-size-xs: 7px;
@@ -34,9 +35,10 @@
   // xxl
   --font-size-xxl: 54px;
   --font-line-xxl: 62px;
-  --font-xxl: var(--font-size-xxl) / var(--font-line-xxl) var(--font-family-main);
+  --font-xxl: var(--font-size-xxl) / var(--font-line-xxl)
+    var(--font-family-main);
 
-  // --- Colors  
+  // --- Colors
   --nord0: #2e3440;
   --nord1: #3b4252;
   --nord2: #434c5e;
@@ -46,13 +48,16 @@
   --nord6: #eceff4;
   --nord7: #8fbcbb;
   --nord8: #88c0d0;
-  --nord9: #81a1c1
+  --nord9: #81a1c1;
   --nord10: #5e81ac;
   --nord11: #bf616a;
   --nord12: #d08770;
   --nord13: #ebcb8b;
   --nord14: #a3be8c;
   --nord15: #b48ead;
+
+  // custom colors
+  --overlay-color: rgb(0 0 0 / 40%);
 
   // --- Sizes
   // navbar
@@ -61,4 +66,7 @@
   // sidebar
   --sidebar-width: 250px;
   --sidebar-width-collapsed: 80px;
+
+  // --- z-indexes
+  --modal-z-index: 10;
 }

@@ -1,3 +1,4 @@
+import { ThemeProvider } from "@app/providers/theme";
 import { Theme } from "@app/providers/theme/lib/ThemeContext";
 import { ReactRenderer } from "@storybook/react-webpack5";
 import { PartialStoryFn } from "storybook/internal/csf";
@@ -15,8 +16,10 @@ export const ThemeDecorator =
     >,
   ) => {
     return (
-      <div className={`app ${theme}`}>
-        <Story />
-      </div>
+      <ThemeProvider>
+        <div className={`app ${theme}`}>
+          <Story />
+        </div>
+      </ThemeProvider>
     );
   };
