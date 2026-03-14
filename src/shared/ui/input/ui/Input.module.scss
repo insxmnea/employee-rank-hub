@@ -1,0 +1,12 @@
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  outline: none;
+}
+
+.placeholder {
+  color: var(--primary-color);
+}

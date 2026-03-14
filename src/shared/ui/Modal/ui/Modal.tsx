@@ -14,15 +14,30 @@ interface ModalProps {
   children?: ReactNode;
   className?: string;
   isOpen?: boolean;
+  lazy?: boolean;
   onClose?: () => void;
 }
 
 const ANIMATION_DELAY = 300;
 
-export const Modal = ({ children, isOpen, onClose, className }: ModalProps) => {
+export const Modal = ({
+  className,
+  children,
+  isOpen,
+  lazy,
+  onClose,
+}: ModalProps) => {
+  const [isMounted, setIsMounted] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(null);
   const { theme } = useTheme();
+
+  useEffect(() => {
+    if (isOpen) {
+      //eslint-disable-next-line
+      setIsMounted(true);
+    }
+  }, [isOpen]);
 
   const mods: Record<string, boolean> = {
     [styles.opened]: isOpen,
@@ -62,6 +77,10 @@ export const Modal = ({ children, isOpen, onClose, className }: ModalProps) => {
       window.removeEventListener("keydown", onKeydown);
     };
   }, [isOpen, onKeydown]);
+
+  if (lazy && !isMounted) {
+    return null;
+  }
 
   return (
     <Portal>

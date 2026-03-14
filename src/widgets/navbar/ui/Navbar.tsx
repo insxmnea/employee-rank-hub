@@ -1,16 +1,20 @@
 import { classnames } from "@shared/lib/classnames";
 import * as styles from "./Navbar.module.scss";
 import { useTranslation } from "react-i18next";
-import { Modal } from "@shared/ui/Modal";
 import { useCallback, useState } from "react";
 import { Button, ButtonTheme } from "@shared/ui/Button";
+import { LoginModal } from "@features/auth-by-username";
 
 export const Navbar = () => {
   const { t } = useTranslation();
   const [isAuthModal, setIsAuthModal] = useState(false);
 
-  const onToggleModal = useCallback(() => {
-    setIsAuthModal((prev) => !prev);
+  const onOpenModal = useCallback(() => {
+    setIsAuthModal(true);
+  }, []);
+
+  const onCloseModal = useCallback(() => {
+    setIsAuthModal(false);
   }, []);
 
   return (
@@ -18,14 +22,12 @@ export const Navbar = () => {
       <Button
         className={classnames(styles.links)}
         theme={ButtonTheme.CLEAR}
-        onClick={onToggleModal}
+        onClick={onOpenModal}
       >
         {t("Войти")}
       </Button>
 
-      <Modal isOpen={isAuthModal} onClose={onToggleModal}>
-        {t("Контент модального окна")}
-      </Modal>
+      <LoginModal isOpen={isAuthModal} onClose={onCloseModal} />
     </div>
   );
 };
