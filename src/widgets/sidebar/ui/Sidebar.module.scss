@@ -4,15 +4,21 @@
   width: var(--sidebar-width);
   background-color: var(--bg-secondary-color);
   transition: width 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  align-items: center;
 }
 
 .collapseBtn {
   position: absolute;
-  right: -40px;
-  bottom: 40px;
+  right: calc(-1 * var(--font-line-l));
+  bottom: 10px;
 }
 
 .links {
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -21,7 +27,7 @@
   padding: 12px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
 
   &:hover {
     color: var(--bg-secondary-color);
@@ -31,6 +37,11 @@
 
 .linkText {
   opacity: 1;
+}
+
+.switchers {
+  display: flex;
+  gap: 8px;
 }
 
 .collapsed {
@@ -49,5 +60,6 @@
 
   .link {
     justify-content: center;
+    gap: 0;
   }
 }

@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Button } from "@shared/ui/Button";
+import { Button, ButtonTheme } from "@shared/ui/Button";
 
 interface LanguageSwitcherProps {
   short?: boolean;
@@ -13,7 +13,7 @@ export const LanguageSwitcher = ({ short }: LanguageSwitcherProps) => {
   };
 
   return (
-    <Button onClick={handleClick}>
+    <Button onClick={handleClick} theme={ButtonTheme.OUTLINE}>
       {t(short ? "ShortLanguage" : "LanguageSwitcher")}
     </Button>
   );

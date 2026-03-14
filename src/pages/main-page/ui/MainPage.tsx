@@ -1,4 +1,4 @@
-import { Counter } from "@entities/counter";
+import { TopEmployeeChart } from "@widgets/top-employee-chart/ui/TopEmployeeChart";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -7,8 +7,8 @@ const MainPage: FC = () => {
 
   return (
     <>
-      <Counter />
       <div>{t("Main page")}</div>
+      <TopEmployeeChart />
     </>
   );
 };

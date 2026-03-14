@@ -24,11 +24,15 @@ export const Sidebar = () => {
     >
       <div className={styles.links}>
         <AppLink to={RoutePath.main} className={styles.link}>
-          <i className="nf nf-md-family_tree"></i>
+          <i className="nf nf-fa-home"></i>
           <span className={styles.linkText}>{t("Main page")}</span>
         </AppLink>
-        <AppLink to={RoutePath.about} className={styles.link}>
+        <AppLink to={RoutePath.rank} className={styles.link}>
           <i className="nf nf-md-family_tree"></i>
+          <span className={styles.linkText}>{t("Rank page")}</span>
+        </AppLink>
+        <AppLink to={RoutePath.about} className={styles.link}>
+          <i className="nf nf-md-information_outline"></i>
           <span className={styles.linkText}>{t("About page")}</span>
         </AppLink>
       </div>

@@ -3,6 +3,7 @@
 @use "themes/light";
 @use "themes/dark";
 @import "https://www.nerdfonts.com/assets/css/webfont.css";
+@import "@xyflow/react/dist/style.css";
 
 body {
   font: var(--font-m);
