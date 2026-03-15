@@ -1,35 +1,38 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, ReducersMapObject } from "@reduxjs/toolkit";
 import { StateSchema } from "./StateSchema";
 import { counterReducer } from "@entities/counter";
 import { userReducer } from "@entities/user";
 import { loginReducer } from "@features/auth-by-username";
+import { $api } from "@shared/config/api";
+import { NavigateOptions, To } from "react-router";
 
-export const store = configureStore<StateSchema>({
-  reducer: {
+export function createReduxStore(
+  initialState?: StateSchema,
+  navigate?: (to: To, options?: NavigateOptions) => void,
+) {
+  const rootReducers: ReducersMapObject<StateSchema> = {
     counter: counterReducer,
     user: userReducer,
     loginForm: loginReducer,
-  },
-  devTools: __IS_DEV__,
-  // preloadedState: initialState,
-});
+  };
 
-// export function createReduxStore(initialState?: StateSchema) {
-//   const rootReducers: ReducersMapObject<StateSchema> = {
-//     counter: counterReducer,
-//     user: userReducer,
-//     loginForm: loginReducer,
-//   };
+  return configureStore<StateSchema>({
+    reducer: rootReducers,
+    devTools: __IS_DEV__,
+    preloadedState: initialState,
+    middleware: (getDefaultMiddleWare) =>
+      getDefaultMiddleWare({
+        thunk: {
+          extraArgument: {
+            api: $api,
+            navigate,
+          },
+        },
+      }),
+  });
+}
 
-//   return configureStore<StateSchema>({
-//     reducer: rootReducers,
-//     devTools: __IS_DEV__,
-//     preloadedState: initialState,
-//   });
-// }
+export type AppStore = ReturnType<typeof createReduxStore>;
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>;
-
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<AppStore["getState"]>;
+export type AppDispatch = AppStore["dispatch"];

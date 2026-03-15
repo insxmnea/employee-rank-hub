@@ -11,13 +11,13 @@ import { StoreProvider } from "@app/providers/StoreProvider";
 const root = createRoot(document.getElementById("root"));
 
 root.render(
-  <StoreProvider>
-    <BrowserRouter>
+  <BrowserRouter>
+    <StoreProvider>
       <ErrorBoundary fallback={<ErrorPage />}>
         <ThemeProvider>
           <App />
         </ThemeProvider>
       </ErrorBoundary>
-    </BrowserRouter>
-  </StoreProvider>,
+    </StoreProvider>
+  </BrowserRouter>,
 );
