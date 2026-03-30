@@ -22,7 +22,7 @@ server.use(async (req, res, next) => {
 });
 
 // Эндпоинт для логина
-server.post("/login", (req, res) => {
+server.post("/auth/login", (req, res) => {
   try {
     const { username, password } = req.body;
     const db = JSON.parse(

@@ -6,18 +6,18 @@ import "@shared/config/i18n/i18n";
 import { ErrorBoundary } from "@app/providers/ErrorBoundary";
 import { ErrorPage } from "@pages/error-page";
 import "./app/styles/index.scss";
-import { StoreProvider } from "@app/providers/StoreProvider";
+import { QueryProvider } from "@app/providers/query-provider";
 
 const root = createRoot(document.getElementById("root"));
 
 root.render(
   <BrowserRouter>
-    <StoreProvider>
+    <QueryProvider>
       <ErrorBoundary fallback={<ErrorPage />}>
         <ThemeProvider>
           <App />
         </ThemeProvider>
       </ErrorBoundary>
-    </StoreProvider>
+    </QueryProvider>
   </BrowserRouter>,
 );

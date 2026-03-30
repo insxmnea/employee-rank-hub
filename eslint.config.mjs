@@ -8,6 +8,7 @@ import pluginReact from "eslint-plugin-react";
 import { defineConfig } from "eslint/config";
 import i18next from "eslint-plugin-i18next";
 import reactHooks from "eslint-plugin-react-hooks";
+import pluginQuery from "@tanstack/eslint-plugin-query";
 
 export default defineConfig([
   {
@@ -20,6 +21,7 @@ export default defineConfig([
   tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
   i18next.configs["flat/recommended"],
+  pluginQuery.configs["flat/recommended"],
   {
     rules: {
       "react/react-in-jsx-scope": "off",

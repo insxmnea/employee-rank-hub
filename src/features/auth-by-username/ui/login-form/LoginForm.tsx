@@ -2,40 +2,21 @@ import { useTranslation } from "react-i18next";
 import * as styles from "./LoginForm.module.scss";
 import { Button } from "@shared/ui/Button";
 import { Input } from "@shared/ui/input";
-import { memo, useCallback } from "react";
-import { loginActions } from "../../model/slice/loginSlice";
-import { getLoginState } from "../../model/selectors/getLoginState/getLoginState";
-import { loginByUsername } from "../../model/services/login-by-username/loginByUsername";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "@app/providers/StoreProvider/config/hooks";
+import { memo, useCallback, useState } from "react";
+import { useAuthLogin } from "@features/auth-by-username/api/useAuthLogin";
 
-interface LoginFormProps {}
+export interface LoginFormProps {}
 
 export const LoginForm = memo((props: LoginFormProps) => {
   const { t } = useTranslation();
-  const dispatch = useAppDispatch();
-  const { username, password, isLoading, error } =
-    useAppSelector(getLoginState);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const onChangeUsername = useCallback(
-    (value: string) => {
-      dispatch(loginActions.setUsername(value));
-    },
-    [dispatch],
-  );
-
-  const onChangePassword = useCallback(
-    (value: string) => {
-      dispatch(loginActions.setPassword(value));
-    },
-    [dispatch],
-  );
+  const { mutate, error, isPending } = useAuthLogin();
 
   const onLoginClick = useCallback(() => {
-    dispatch(loginByUsername({ username, password }));
-  }, [dispatch, username, password]);
+    mutate({ username, password });
+  }, [mutate, password, username]);
 
   return (
     <div className={styles.loginForm}>
@@ -44,18 +25,18 @@ export const LoginForm = memo((props: LoginFormProps) => {
       <Input
         value={username}
         placeholder="Имя"
-        onChange={onChangeUsername}
+        onChange={(value) => setUsername(value)}
         autofocus
       />
       <Input
         value={password}
         placeholder="Пароль"
-        onChange={onChangePassword}
+        onChange={(value) => setPassword(value)}
       />
       <Button
         className={styles.loginForm__button}
         onClick={onLoginClick}
-        disabled={isLoading}
+        disabled={isPending}
       >
         {t("Вход")}
       </Button>
@@ -64,3 +45,5 @@ export const LoginForm = memo((props: LoginFormProps) => {
 });
 
 LoginForm.displayName = "LoginForm";
+
+export default LoginForm;

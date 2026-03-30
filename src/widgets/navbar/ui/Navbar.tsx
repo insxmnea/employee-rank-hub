@@ -4,17 +4,13 @@ import { useTranslation } from "react-i18next";
 import { useCallback, useState } from "react";
 import { Button, ButtonTheme } from "@shared/ui/Button";
 import { LoginModal } from "@features/auth-by-username";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "@app/providers/StoreProvider/config/hooks";
-import { getUserAuthData, userActions } from "@entities/user";
+import { useAuthStore } from "@entities/auth";
 
 export const Navbar = () => {
   const { t } = useTranslation();
   const [isAuthModal, setIsAuthModal] = useState(false);
-  const authData = useAppSelector(getUserAuthData);
-  const dispatch = useAppDispatch();
+  const logout = useAuthStore((state) => state.logout);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   const onOpenModal = useCallback(() => {
     setIsAuthModal(true);
@@ -25,10 +21,10 @@ export const Navbar = () => {
   }, []);
 
   const onLogout = useCallback(() => {
-    dispatch(userActions.logout());
-  }, [dispatch]);
+    logout();
+  }, [logout]);
 
-  if (authData) {
+  if (isAuthenticated) {
     return (
       <div className={classnames(styles.navbar)}>
         <Button

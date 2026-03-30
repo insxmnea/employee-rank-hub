@@ -4,16 +4,15 @@ import { AppRouter } from "./providers/router";
 import { Navbar } from "@widgets/navbar";
 import { Sidebar } from "@widgets/sidebar";
 import { Suspense, useEffect } from "react";
-import { useAppDispatch } from "./providers/StoreProvider/config/hooks";
-import { userActions } from "@entities/user";
+import { useAuthStore } from "@entities/auth";
 
 export const App = () => {
   const { theme } = useTheme();
-  const dispatch = useAppDispatch();
+  const initialize = useAuthStore((state) => state.initialize);
 
   useEffect(() => {
-    dispatch(userActions.initAuthData());
-  }, [dispatch]);
+    initialize();
+  }, [initialize]);
 
   return (
     <div className={classnames("app", {}, [theme])}>
