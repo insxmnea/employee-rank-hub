@@ -1,5 +1,5 @@
 import { classnames } from "@shared/lib/classnames";
-import * as styles from "./Sidebar.module.scss";
+import * as styles from "./Sidebar.module.css";
 import { useState } from "react";
 import { Button, ButtonTheme } from "@shared/ui/Button";
 import { ThemeSwitcher } from "@widgets/theme-switcher";

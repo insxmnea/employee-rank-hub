@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import * as styles from "./ErrorPage.module.scss";
+import * as styles from "./ErrorPage.module.css";
 import { Button } from "@shared/ui/Button";
 
 export const ErrorPage = () => {

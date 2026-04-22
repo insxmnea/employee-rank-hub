@@ -1,5 +1,5 @@
 import { useTheme } from "@app/providers/theme";
-import * as styles from "./ThemeSwitcher.module.scss";
+import * as styles from "./ThemeSwitcher.module.css";
 import { classnames } from "@shared/lib/classnames";
 import { Button } from "@shared/ui/Button";
 import { useTranslation } from "react-i18next";

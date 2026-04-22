@@ -1,6 +1,6 @@
 import { ReactRenderer } from "@storybook/react-webpack5";
 import { PartialStoryFn } from "storybook/internal/csf";
-import "@app/styles/index.scss";
+import "@app/styles/index.css";
 
 export const StyleDecorator = (
   Story: PartialStoryFn<

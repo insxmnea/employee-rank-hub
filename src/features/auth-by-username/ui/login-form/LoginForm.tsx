@@ -1,13 +1,11 @@
 import { useTranslation } from "react-i18next";
-import * as styles from "./LoginForm.module.scss";
+import * as styles from "./LoginForm.module.css";
 import { Button } from "@shared/ui/Button";
 import { Input } from "@shared/ui/input";
 import { memo, useCallback, useState } from "react";
 import { useAuthLogin } from "@features/auth-by-username/api/useAuthLogin";
 
-export interface LoginFormProps {}
-
-export const LoginForm = memo((props: LoginFormProps) => {
+export const LoginForm = memo(() => {
   const { t } = useTranslation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

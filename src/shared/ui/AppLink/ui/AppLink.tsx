@@ -1,5 +1,5 @@
 import { Link, LinkProps } from "react-router";
-import * as styles from "./AppLink.module.scss";
+import * as styles from "./AppLink.module.css";
 import { classnames } from "@shared/lib/classnames";
 
 export enum AppLinkTheme {
