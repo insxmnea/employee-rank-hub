@@ -1,5 +1,5 @@
 import { classnames } from "@shared/lib/classnames";
-import * as styles from "./Input.module.scss";
+import * as styles from "./Input.module.css";
 import React, { InputHTMLAttributes, memo, useEffect, useRef } from "react";
 
 type HTMLInputProps = Omit<
@@ -29,7 +29,7 @@ export const Input = memo(
 
     useEffect(() => {
       if (autofocus) {
-        ref.current.focus();
+        ref.current?.focus();
       }
     }, [autofocus]);
 

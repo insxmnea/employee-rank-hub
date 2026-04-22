@@ -1,7 +1,7 @@
-@use "reset";
-@use "variables/global";
-@use "themes/light";
-@use "themes/dark";
+@import "reset.css";
+@import "variables/global.css";
+@import "themes/light.css";
+@import "themes/dark.css";
 @import "https://www.nerdfonts.com/assets/css/webfont.css";
 @import "@xyflow/react/dist/style.css";
 
@@ -22,4 +22,6 @@ body {
 .page-wrapper {
   flex-grow: 1;
   padding: 14px 20px;
+  overflow: auto;
+  height: calc(100vh - var(--navbar-height));
 }

@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes } from "react";
-import * as styles from "./Button.module.scss";
+import styles from "./Button.module.css";
 import { classnames } from "@shared/lib/classnames";
 
 export enum ButtonTheme {
@@ -23,17 +23,15 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
 }
 
-export const Button = (props: ButtonProps) => {
-  const {
-    className,
-    theme,
-    children,
-    square,
-    disabled,
-    size = ButtonSize.M,
-    ...otherProps
-  } = props;
-
+export const Button = ({
+  className,
+  theme = ButtonTheme.BACKGROUND,
+  children,
+  square = false,
+  disabled = false,
+  size = ButtonSize.M,
+  ...otherProps
+}: ButtonProps) => {
   const mods = {
     [styles.square]: square,
     [styles.disabled]: disabled,

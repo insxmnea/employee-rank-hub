@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next";
+import React from "react";
 
 export enum TextTheme {
   PRIMARY = "primary",
@@ -6,10 +6,9 @@ export enum TextTheme {
 
 interface TextProps {
   theme?: TextTheme;
+  children: React.ReactNode;
 }
 
-export const Text = (props: TextProps) => {
-  const { t } = useTranslation();
-
-  return <div>{t("Text")}</div>;
+export const Text = ({ theme, children }: TextProps) => {
+  return <div>{children}</div>;
 };

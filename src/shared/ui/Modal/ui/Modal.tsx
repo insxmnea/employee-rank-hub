@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import * as styles from "./Modal.module.scss";
+import * as styles from "./Modal.module.css";
 import { classnames } from "@shared/lib/classnames";
 import { Portal } from "@shared/ui/Portal";
 import { useTheme } from "@app/providers/theme";

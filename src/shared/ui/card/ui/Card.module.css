@@ -1,0 +1,8 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 4px 30px 0px rgba(34, 60, 80, 0.2);
+  border-radius: 12px;
+  padding: 12px 24px;
+  background: var(--bg3-color);
+}
