@@ -10,30 +10,24 @@ export const subdivisionDataToFlowElements = (
 
   if (!subdivisions) return { nodes, edges };
 
-  const subdivisionOffsetX = 200;
-  const employeeOffsetY = 150;
-
-  subdivisions.forEach((subdivision, subIndex) => {
+  subdivisions.forEach((subdivision) => {
     const subdivisionId = `subdivision-${subdivision.id}`;
     const subdivisionNode: Node = {
       id: subdivisionId,
       type: "default",
       data: { label: subdivision.name },
-      position: { x: subIndex * subdivisionOffsetX, y: 0 },
+      position,
       style: { backgroundColor: "#f0f0f0", border: "1px solid #ccc" },
     };
 
     nodes.push(subdivisionNode);
 
-    subdivision.employees.forEach((employee, empIndex) => {
+    subdivision.employees.forEach((employee) => {
       const employeeId = `employee-${employee.id}`;
       const employeeNode: Node = {
         id: employeeId,
         data: { label: `${employee.firstName} ${employee.lastName}` },
-        position: {
-          x: subIndex * subdivisionOffsetX,
-          y: (empIndex + 1) * employeeOffsetY,
-        },
+        position,
         style: { backgroundColor: "#e6f7ff" },
       };
       nodes.push(employeeNode);

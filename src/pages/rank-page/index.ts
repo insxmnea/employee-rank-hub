@@ -1,1 +1,1 @@
-export { RankPage } from "./ui/RankPage";
+export { RankPageAsync as RankPage } from "./ui/RankPage.async";

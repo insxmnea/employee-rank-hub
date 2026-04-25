@@ -2,7 +2,7 @@ import { subdivisionQueries } from "@entities/subdivision/api/subdivision.querie
 import { useQuery } from "@tanstack/react-query";
 import { SubdivisionsHierarchy } from "@widgets/subdivisions-hierarchy";
 
-export const RankPage = () => {
+const RankPage = () => {
   const { data } = useQuery(subdivisionQueries.allSubdivisions());
 
   console.log(data?.data);
@@ -13,3 +13,5 @@ export const RankPage = () => {
     </div>
   );
 };
+
+export default RankPage;

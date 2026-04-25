@@ -2,21 +2,23 @@ import { useTranslation } from "react-i18next";
 import { subdivisionQueries } from "@entities/subdivision/api/subdivision.queries";
 import { useQuery } from "@tanstack/react-query";
 import {
-  addEdge,
-  applyEdgeChanges,
-  applyNodeChanges,
+  Background,
+  ConnectionLineType,
+  Controls,
   DefaultEdgeOptions,
   Edge,
   FitViewOptions,
   Node,
-  OnConnect,
-  OnEdgesChange,
-  OnNodeDrag,
-  OnNodesChange,
+  Panel,
   ReactFlow,
+  useEdgesState,
+  useNodesState,
 } from "@xyflow/react";
-import { useCallback, useState } from "react";
-import { subdivisionDataToFlowElements } from "../lib/helpers";
+import { useCallback, useEffect } from "react";
+import { subdivisionDataToFlowElements } from "../lib";
+import { PageLoader } from "@widgets/page-loader";
+import { Button, ButtonTheme } from "@shared/ui/Button";
+import { getLayoutedElements } from "@shared/lib";
 
 const fitViewOptions: FitViewOptions = {
   padding: 0.2,
@@ -26,42 +28,39 @@ const defaultEdgeOptions: DefaultEdgeOptions = {
   animated: true,
 };
 
-const onNodeDrag: OnNodeDrag = (_, node) => {
-  console.log("drag event", node.data);
-};
-
-interface SubdivisionsHierarchyProps {}
-
-export const SubdivisionsHierarchy = (props: SubdivisionsHierarchyProps) => {
+export const SubdivisionsHierarchy = () => {
   const { t } = useTranslation();
 
   const { data, isLoading } = useQuery(subdivisionQueries.allSubdivisions());
 
-  const { nodes: flowNodes, edges: flowEdges } = subdivisionDataToFlowElements(
-    data?.data,
+  const [nodes, setNodes, onNodesChange] = useNodesState<Node>([]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
+
+  useEffect(() => {
+    const { nodes: flowNodes, edges: flowEdges } =
+      subdivisionDataToFlowElements(data?.data);
+
+    const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
+      flowNodes,
+      flowEdges,
+    );
+
+    setNodes(layoutedNodes);
+    setEdges(layoutedEdges);
+  }, [data?.data, setEdges, setNodes]);
+
+  const onLayout = useCallback(
+    (direction: string) => {
+      const { nodes: layoutedNodes, edges: layoutedEdges } =
+        getLayoutedElements(nodes, edges, direction);
+
+      setNodes([...layoutedNodes]);
+      setEdges([...layoutedEdges]);
+    },
+    [nodes, edges, setEdges, setNodes],
   );
 
-  const [nodes, setNodes] = useState<Node[]>(flowNodes);
-  const [edges, setEdges] = useState<Edge[]>(flowEdges);
-
-  console.log(data?.data);
-
-  const onNodesChange: OnNodesChange = useCallback(
-    (changes) =>
-      setNodes((nodesSnapshot) => applyNodeChanges(changes, nodesSnapshot)),
-    [],
-  );
-  const onEdgesChange: OnEdgesChange = useCallback(
-    (changes) =>
-      setEdges((edgesSnapshot) => applyEdgeChanges(changes, edgesSnapshot)),
-    [],
-  );
-  const onConnect: OnConnect = useCallback(
-    (params) => setEdges((edgesSnapshot) => addEdge(params, edgesSnapshot)),
-    [],
-  );
-
-  if (isLoading) return null;
+  if (isLoading) return <PageLoader />;
 
   return (
     <div style={{ width: "100%", height: "100%" }}>
@@ -70,13 +69,35 @@ export const SubdivisionsHierarchy = (props: SubdivisionsHierarchyProps) => {
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        onNodeDrag={onNodeDrag}
+        onConnect={() => {}}
+        connectionLineType={ConnectionLineType.SmoothStep}
         fitView
         fitViewOptions={fitViewOptions}
         defaultEdgeOptions={defaultEdgeOptions}
         proOptions={{ hideAttribution: true }}
-      />
+        edgesReconnectable={false}
+      >
+        <Controls
+          orientation="horizontal"
+          position="bottom-right"
+          showInteractive={false}
+        />
+        <Panel position="top-right">
+          <Button
+            theme={ButtonTheme.BACKGROUND_INVERTED}
+            onClick={() => onLayout("TB")}
+          >
+            {t("vertical layout")}
+          </Button>
+          <Button
+            theme={ButtonTheme.BACKGROUND_INVERTED}
+            onClick={() => onLayout("LR")}
+          >
+            {t("horizontal layout")}
+          </Button>
+        </Panel>
+        <Background />
+      </ReactFlow>
     </div>
   );
 };

@@ -23,7 +23,7 @@ const ANIMATION_DELAY = 300;
 export const Modal = ({
   className,
   children,
-  isOpen,
+  isOpen = false,
   lazy,
   onClose,
 }: ModalProps) => {
@@ -73,7 +73,7 @@ export const Modal = ({
     }
 
     return () => {
-      clearTimeout(timerRef.current);
+      if (timerRef.current) clearTimeout(timerRef.current);
       window.removeEventListener("keydown", onKeydown);
     };
   }, [isOpen, onKeydown]);
