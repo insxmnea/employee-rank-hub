@@ -1,5 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
 import { getEmployees } from "./getEmployees";
+import { getEmployee } from "./getEmployee";
 
 export const employeeQueries = {
   all: () => ["employees"],
@@ -12,7 +13,7 @@ export const employeeQueries = {
 
   employee: (id: number) =>
     queryOptions({
-      queryKey: [...employeeQueries.all(), "subdivision", id],
-      queryFn: () => {},
+      queryKey: [...employeeQueries.all(), "employee", id],
+      queryFn: () => getEmployee(id),
     }),
 };

@@ -1,0 +1,45 @@
+.SideModal {
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.overlay {
+  width: 100%;
+  height: 100%;
+  background-color: var(--overlay-color);
+}
+
+.content {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 12px;
+  border-radius: 8px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  background-color: var(--bg-color);
+  transition: 0.3s transform;
+  transform: translateX(100%);
+  max-width: 60%;
+  height: 100vh;
+  width: 650px;
+}
+
+.opened {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: var(--modal-z-index);
+
+  .content {
+    transform: translateX(0);
+  }
+}
+
+.isClosing {
+  .content {
+    transform: translateX(100%);
+  }
+}

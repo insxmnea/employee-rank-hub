@@ -14,11 +14,12 @@ import {
   useEdgesState,
   useNodesState,
 } from "@xyflow/react";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { subdivisionDataToFlowElements } from "../lib";
 import { PageLoader } from "@widgets/page-loader";
 import { Button, ButtonTheme } from "@shared/ui/Button";
 import { getLayoutedElements } from "@shared/lib";
+import { EmployeeDetailsModal } from "@features/employee-details";
 
 const fitViewOptions: FitViewOptions = {
   padding: 0.2,
@@ -35,6 +36,9 @@ export const SubdivisionsHierarchy = () => {
 
   const [nodes, setNodes, onNodesChange] = useNodesState<Node>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
+
+  const [isSideModal, setIsSideModal] = useState(false);
+  const [selectedNodeId, setSelectedNodeId] = useState<string>();
 
   useEffect(() => {
     const { nodes: flowNodes, edges: flowEdges } =
@@ -60,6 +64,15 @@ export const SubdivisionsHierarchy = () => {
     [nodes, edges, setEdges, setNodes],
   );
 
+  const onNodeClick = (event: React.MouseEvent, node: Node) => {
+    setIsSideModal(true);
+    setSelectedNodeId(node.id.split("-")[1]);
+  };
+
+  const onCloseSideModal = () => {
+    setIsSideModal(false);
+  };
+
   if (isLoading) return <PageLoader />;
 
   return (
@@ -76,6 +89,9 @@ export const SubdivisionsHierarchy = () => {
         defaultEdgeOptions={defaultEdgeOptions}
         proOptions={{ hideAttribution: true }}
         edgesReconnectable={false}
+        onNodeClick={onNodeClick}
+        nodesDraggable={false}
+        nodesConnectable={false}
       >
         <Controls
           orientation="horizontal"
@@ -98,6 +114,12 @@ export const SubdivisionsHierarchy = () => {
         </Panel>
         <Background />
       </ReactFlow>
+
+      <EmployeeDetailsModal
+        id={selectedNodeId ?? ""}
+        isOpen={isSideModal}
+        onClose={onCloseSideModal}
+      />
     </div>
   );
 };
