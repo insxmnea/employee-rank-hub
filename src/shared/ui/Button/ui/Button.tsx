@@ -9,6 +9,8 @@ export enum ButtonTheme {
   BACKGROUND_INVERTED = "backgroundInverted",
 }
 
+type ButtonThemes = "clear" | "outline" | "background" | "backgroundInverted";
+
 export enum ButtonSize {
   M = "size_m",
   L = "size_l",
@@ -17,7 +19,7 @@ export enum ButtonSize {
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
-  theme?: ButtonTheme;
+  theme?: ButtonThemes;
   square?: boolean;
   size?: ButtonSize;
   disabled?: boolean;

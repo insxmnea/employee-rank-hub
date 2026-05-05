@@ -49,7 +49,6 @@ export const Sidebar = () => {
         size={ButtonSize.L}
         square
       >
-        {/* {t("collapse sidebar")} */}
         {collapsed ? ">" : "<"}
       </Button>
     </div>
