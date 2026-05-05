@@ -1,5 +1,6 @@
 import { Subdivisions } from "@entities/subdivision";
 import { Edge, Node } from "@xyflow/react";
+import { getEmployeeColor } from "./getEmployeeColor";
 
 export const subdivisionDataToFlowElements = (
   subdivisions: Subdivisions | undefined,
@@ -17,7 +18,10 @@ export const subdivisionDataToFlowElements = (
       type: "default",
       data: { label: subdivision.name },
       position,
-      style: { backgroundColor: "#f0f0f0", border: "1px solid #ccc" },
+      style: {
+        backgroundColor: "#e6f7ff",
+        border: "1px solid #ccc",
+      },
     };
 
     nodes.push(subdivisionNode);
@@ -28,7 +32,9 @@ export const subdivisionDataToFlowElements = (
         id: employeeId,
         data: { label: `${employee.firstName} ${employee.lastName}` },
         position,
-        style: { backgroundColor: "#e6f7ff" },
+        style: {
+          backgroundColor: getEmployeeColor(employee.employeeCurrentAssessment),
+        },
       };
       nodes.push(employeeNode);
 

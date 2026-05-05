@@ -1,0 +1,16 @@
+.Text {
+  margin: 0;
+  padding: 0;
+}
+
+.m {
+  font: var(--font-m);
+}
+
+.l {
+  font: var(--font-l);
+}
+
+.xl {
+  font: var(--font-xl);
+}

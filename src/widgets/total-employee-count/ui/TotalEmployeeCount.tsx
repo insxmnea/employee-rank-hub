@@ -7,12 +7,16 @@ import {
   Area,
   CartesianGrid,
   createHorizontalChart,
+  Label,
   Pie,
   PieChart,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
+import styles from "./TotalEmployeeCount.module.css";
+import { useTheme } from "@app/providers/theme";
+import { Theme } from "@app/providers/theme/lib/ThemeContext";
 
 type MyData = {
   name: string;
@@ -40,44 +44,82 @@ const data: MyData[] = [
 export const TotalEmployeeCount = () => {
   const { t } = useTranslation();
   const { data } = useQuery(employeeQueries.allEmployees());
+  const { theme } = useTheme();
+  const pieChartLabelColor = theme === Theme.DARK ? "#fff" : "#000";
+  const upEmployeesCount = data?.data.filter(
+    (employee) => employee.delta === "up",
+  ).length;
+  const downEmployeesCount = data?.data.filter(
+    (employee) => employee.delta === "down",
+  ).length;
 
   const resData = [
     {
-      name: "up",
+      name: "Сотрудники с положительной динамикой",
       value: data?.data.filter((employee) => employee.delta === "up").length,
       fill: "#a3be8c",
     },
     {
-      name: "down",
+      name: "Сотрудники с отрицательной динамикой",
       value: data?.data.filter((employee) => employee.delta === "down").length,
       fill: "#bf616a",
     },
   ];
 
+  const getPotentialPercent = () => {
+    if (data?.data) {
+      return `${data?.data.filter((employee) => employee.delta === "up").length / data?.data.length}%`;
+    }
+
+    return "0%";
+  };
+
   return (
-    <Card>
-      <Text>{t("Потенциал сотрудников системы")}</Text>
-      <PieChart
-        style={{
-          width: "100%",
-          height: "100%",
-          maxWidth: "150px",
-          // maxHeight: "80vh",
-          aspectRatio: 1,
-        }}
-        responsive
-      >
-        <Pie
-          data={resData}
-          dataKey="value"
-          cx="50%"
-          cy="50%"
-          // innerRadius="75%"
-          outerRadius="100%"
-          isAnimationActive
-        />
-        <Tooltip />
-      </PieChart>
+    <Card className={styles.wrapper}>
+      <Text size="l">{t("Потенциал сотрудников системы")}</Text>
+      <div className={styles.content}>
+        <PieChart
+          style={{
+            width: "100%",
+            height: "100%",
+            maxWidth: "150px",
+            aspectRatio: 1,
+          }}
+          responsive
+        >
+          <Pie
+            data={resData}
+            dataKey="value"
+            cx="50%"
+            cy="50%"
+            innerRadius="65%"
+            outerRadius="100%"
+            isAnimationActive
+          >
+            <Label position="center" fill={pieChartLabelColor} fontSize={22}>
+              {getPotentialPercent()}
+            </Label>
+          </Pie>
+          <Tooltip />
+        </PieChart>
+
+        <div className={styles.legend}>
+          <div className={styles.legend__row}>
+            <div
+              className={styles.badge}
+              style={{ backgroundColor: "#a3be8c" }}
+            ></div>
+            <Text>{`${t("Сотрудники с положительной динамикой")} - ${upEmployeesCount}`}</Text>
+          </div>
+          <div className={styles.legend__row}>
+            <div
+              className={styles.badge}
+              style={{ backgroundColor: "#bf616a" }}
+            ></div>
+            <Text>{`${t("Сотрудники с отрицательной динамикой")} - ${downEmployeesCount}`}</Text>
+          </div>
+        </div>
+      </div>
     </Card>
     // <Typed.AreaChart
     //   width={500}
