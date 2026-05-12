@@ -5,6 +5,25 @@
   height: 100%;
 }
 
+.wrapper {
+  padding: 12px 24px;
+}
+
 .employee_info {
-  margin-top: 12px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  place-items: center center;
+}
+
+.avatar {
+  font-size: 168px;
+  color: var(--secondary-color);
+}
+
+.average-statistics-text {
+  margin-top: 24px;
+  margin-bottom: 12px;
 }

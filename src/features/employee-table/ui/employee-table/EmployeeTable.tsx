@@ -4,6 +4,8 @@ import { employeeQueries } from "@entities/employee";
 import { Loader } from "@shared/ui/Loader";
 import { useTranslation } from "react-i18next";
 import { Td } from "@shared/ui/table";
+import { EmployeeDetailsModal } from "@features/employee-details";
+import { useState } from "react";
 
 const getDeltaIcon = (delta: "up" | "down") => {
   return delta === "up" ? (
@@ -23,12 +25,27 @@ export const EmployeeTable = (props: EmployeeTableProps) => {
   const { t } = useTranslation();
   const { data, isLoading } = useQuery(employeeQueries.employeesRank());
 
+  const [isSideModal, setIsSideModal] = useState(false);
+  const [employeeId, setEmployeeId] = useState("");
+
   if (isLoading) return <Loader centered />;
 
-  console.log(data?.data);
+  const handleRowClick = (id: string) => {
+    setIsSideModal(true);
+    setEmployeeId(id);
+  };
+
+  const onCloseSideModal = () => {
+    setIsSideModal(false);
+    setEmployeeId("");
+  };
 
   const tableContent = data?.data.map((employee, index) => (
-    <tr className={styles.tr} key={employee.id}>
+    <tr
+      className={styles.tr}
+      key={employee.id}
+      onClick={() => handleRowClick(employee.id)}
+    >
       <Td centered>{index + 1}</Td>
       <Td centered>{`${employee.topsisScore.toFixed(2) ?? "-"}`}</Td>
       <Td className={styles.deltaAssessment} centered>
@@ -43,19 +60,27 @@ export const EmployeeTable = (props: EmployeeTableProps) => {
   ));
 
   return (
-    <table className={styles.table}>
-      <thead className={styles.thead}>
-        <tr>
-          <th className={styles.th}>{t("№")}</th>
-          <th className={styles.th}>{t("Рейтинг TOPSIS")}</th>
-          <th className={styles.th}>{t("Балл")}</th>
-          <th className={styles.th}>{t("ФИО сотрудника")}</th>
-          <th className={styles.th}>{t("Отдел")}</th>
-          <th className={styles.th}>{t("Должность")}</th>
-          <th className={styles.th}>{t("Уровень")}</th>
-        </tr>
-      </thead>
-      <tbody>{tableContent}</tbody>
-    </table>
+    <>
+      <table className={styles.table}>
+        <thead className={styles.thead}>
+          <tr>
+            <th className={styles.th}>{t("№")}</th>
+            <th className={styles.th}>{t("Рейтинг TOPSIS")}</th>
+            <th className={styles.th}>{t("Балл")}</th>
+            <th className={styles.th}>{t("ФИО сотрудника")}</th>
+            <th className={styles.th}>{t("Отдел")}</th>
+            <th className={styles.th}>{t("Должность")}</th>
+            <th className={styles.th}>{t("Позиция")}</th>
+          </tr>
+        </thead>
+        <tbody>{tableContent}</tbody>
+      </table>
+
+      <EmployeeDetailsModal
+        id={employeeId}
+        isOpen={isSideModal}
+        onClose={onCloseSideModal}
+      />
+    </>
   );
 };
