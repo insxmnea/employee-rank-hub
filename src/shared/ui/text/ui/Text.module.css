@@ -3,6 +3,22 @@
   padding: 0;
 }
 
+.centered {
+  text-align: center;
+}
+
+.xxs {
+  font: var(--font-xxs);
+}
+
+.xs {
+  font: var(--font-xs);
+}
+
+.s {
+  font: var(--font-s);
+}
+
 .m {
   font: var(--font-m);
 }
@@ -13,4 +29,16 @@
 
 .xl {
   font: var(--font-xl);
+}
+
+.xxl {
+  font: var(--font-xxl)
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.right {
+  text-align: right;
 }

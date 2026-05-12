@@ -1,5 +1,16 @@
+import { classnames } from "@shared/lib/classnames";
 import * as styles from "./Loader.module.css";
 
-export const Loader = () => {
-  return <div className={styles.loader}></div>;
+interface LoaderProps {
+  centered?: boolean;
+}
+
+export const Loader = ({ centered = false }: LoaderProps) => {
+  return (
+    <div
+      className={classnames(styles.loader, {
+        [styles.centered]: centered,
+      })}
+    ></div>
+  );
 };

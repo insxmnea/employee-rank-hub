@@ -77,7 +77,9 @@ export const TotalEmployeeCount = () => {
 
   return (
     <Card className={styles.wrapper}>
-      <Text size="l">{t("Потенциал сотрудников системы")}</Text>
+      <Text centered size="l">
+        {t("Динамика потенциала сотрудников")}
+      </Text>
 
       {isLoading ? (
         <div className={styles.loader_wrapper}>
