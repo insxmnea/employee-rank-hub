@@ -1,0 +1,16 @@
+.td {
+  padding: 10px 12px;
+  border-right: 1px solid var(--bg-secondary-color);
+}
+
+.td:last-child {
+  border: none;
+}
+
+.right {
+  text-align: right;
+}
+
+.centered {
+  text-align: center;
+}

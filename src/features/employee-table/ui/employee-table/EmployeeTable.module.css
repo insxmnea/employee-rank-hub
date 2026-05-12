@@ -1,0 +1,45 @@
+.table {
+  margin: 0 auto;
+  border: 1px solid var(--bg-secondary-color);
+  border-radius: 8px;
+  border-spacing: 0;
+}
+
+.thead {
+  background-color: var(--bg-secondary-color);
+}
+
+.th {
+  padding: 10px 12px;
+  background-color: var(--bg-secondary-color);
+}
+
+.tr {
+  background-color: var(--bg-color);
+  cursor: pointer;
+}
+
+.tr:nth-child(even) {
+  background-color: var(--bg3-color);
+}
+
+.tr:hover {
+  background-color: var(--bg3-color);
+}
+
+.upIcon {
+  color: var(--nord14);
+  font-size: 24px;
+}
+
+.downIcon {
+  color: var(--nord11);
+  font-size: 24px;
+}
+
+.deltaAssessment {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}

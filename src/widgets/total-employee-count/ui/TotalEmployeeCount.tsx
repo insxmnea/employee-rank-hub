@@ -69,7 +69,13 @@ export const TotalEmployeeCount = () => {
 
   const getPotentialPercent = () => {
     if (data?.data) {
-      return `${data?.data.filter((employee) => employee.delta === "up").length / data?.data.length}%`;
+      const percent = Math.floor(
+        (data?.data.filter((employee) => employee.delta === "up").length /
+          data?.data.length) *
+          100,
+      );
+
+      return `${percent}%`;
     }
 
     return "0%";

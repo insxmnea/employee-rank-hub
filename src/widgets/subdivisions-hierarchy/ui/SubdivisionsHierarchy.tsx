@@ -20,6 +20,7 @@ import { PageLoader } from "@widgets/page-loader";
 import { Button, ButtonTheme } from "@shared/ui/Button";
 import { getLayoutedElements } from "@shared/lib";
 import { EmployeeDetailsModal } from "@features/employee-details";
+import styles from "./SubdivisionsHierarchy.module.css";
 
 const fitViewOptions: FitViewOptions = {
   padding: 0.2,
@@ -103,13 +104,14 @@ export const SubdivisionsHierarchy = () => {
             theme={ButtonTheme.BACKGROUND_INVERTED}
             onClick={() => onLayout("TB")}
           >
-            {t("vertical layout")}
+            {t("вертикально")}
           </Button>
           <Button
+            className={styles.button}
             theme={ButtonTheme.BACKGROUND_INVERTED}
             onClick={() => onLayout("LR")}
           >
-            {t("horizontal layout")}
+            {t("горизонтально")}
           </Button>
         </Panel>
         <Background />

@@ -1,0 +1,61 @@
+import { useQuery } from "@tanstack/react-query";
+import styles from "./EmployeeTable.module.css";
+import { employeeQueries } from "@entities/employee";
+import { Loader } from "@shared/ui/Loader";
+import { useTranslation } from "react-i18next";
+import { Td } from "@shared/ui/table";
+
+const getDeltaIcon = (delta: "up" | "down") => {
+  return delta === "up" ? (
+    <div className={styles.upIcon}>
+      <i className="nf nf-fa-caret_up"></i>
+    </div>
+  ) : (
+    <div className={styles.downIcon}>
+      <i className="nf nf-fa-caret_down"></i>
+    </div>
+  );
+};
+
+interface EmployeeTableProps {}
+
+export const EmployeeTable = (props: EmployeeTableProps) => {
+  const { t } = useTranslation();
+  const { data, isLoading } = useQuery(employeeQueries.employeesRank());
+
+  if (isLoading) return <Loader centered />;
+
+  console.log(data?.data);
+
+  const tableContent = data?.data.map((employee, index) => (
+    <tr className={styles.tr} key={employee.id}>
+      <Td centered>{index + 1}</Td>
+      <Td centered>{`${employee.topsisScore.toFixed(2) ?? "-"}`}</Td>
+      <Td className={styles.deltaAssessment} centered>
+        {getDeltaIcon(employee.delta)}{" "}
+        {employee.employeeCurrentAssessment ?? "—"}
+      </Td>
+      <Td>{`${employee.lastName ?? "-"} ${employee.firstName ?? "-"} ${employee.patronymic ?? "-"}`}</Td>
+      <Td>{`${employee.subdivision.name ?? "-"}`}</Td>
+      <Td>{`${employee.profession ?? "-"}`}</Td>
+      <Td>{`${employee.role ?? "-"}`}</Td>
+    </tr>
+  ));
+
+  return (
+    <table className={styles.table}>
+      <thead className={styles.thead}>
+        <tr>
+          <th className={styles.th}>{t("№")}</th>
+          <th className={styles.th}>{t("Рейтинг TOPSIS")}</th>
+          <th className={styles.th}>{t("Балл")}</th>
+          <th className={styles.th}>{t("ФИО сотрудника")}</th>
+          <th className={styles.th}>{t("Отдел")}</th>
+          <th className={styles.th}>{t("Должность")}</th>
+          <th className={styles.th}>{t("Уровень")}</th>
+        </tr>
+      </thead>
+      <tbody>{tableContent}</tbody>
+    </table>
+  );
+};

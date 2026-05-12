@@ -9,8 +9,8 @@ const MainPage: FC = () => {
 
   return (
     <>
-      <div>{t("Main page")}</div>
-      <TopEmployeeChart />
+      {/* <div>{t("Main page")}</div>
+      <TopEmployeeChart /> */}
 
       <div className={styles.widgets}>
         <TotalEmployeeCount />

@@ -28,4 +28,5 @@ export interface Employee {
   profileImage: string;
   subdivision: Subdivision;
   assessment: string[];
+  topsisScore: number;
 }
