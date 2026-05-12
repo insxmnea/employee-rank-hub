@@ -4,7 +4,7 @@
 
 .legend {
   background-color: var(--bg-secondary-color);
-  margin-top: 12px;
+  margin-bottom: 12px;
   padding: 12px;
   display: flex;
   flex-direction: column;

@@ -101,19 +101,6 @@ export const SubdivisionsHierarchy = () => {
           showInteractive={false}
         />
         <Panel position="top-right">
-          <Button
-            theme={ButtonTheme.BACKGROUND_INVERTED}
-            onClick={() => onLayout("TB")}
-          >
-            {t("вертикально")}
-          </Button>
-          <Button
-            className={styles.button}
-            theme={ButtonTheme.BACKGROUND_INVERTED}
-            onClick={() => onLayout("LR")}
-          >
-            {t("горизонтально")}
-          </Button>
           <div className={styles.legend}>
             <Text centered>{t("Легенда")}</Text>
 
@@ -142,6 +129,20 @@ export const SubdivisionsHierarchy = () => {
               </div>
             </div>
           </div>
+
+          <Button
+            theme={ButtonTheme.BACKGROUND_INVERTED}
+            onClick={() => onLayout("TB")}
+          >
+            {t("вертикально")}
+          </Button>
+          <Button
+            className={styles.button}
+            theme={ButtonTheme.BACKGROUND_INVERTED}
+            onClick={() => onLayout("LR")}
+          >
+            {t("горизонтально")}
+          </Button>
         </Panel>
         <Background />
       </ReactFlow>
