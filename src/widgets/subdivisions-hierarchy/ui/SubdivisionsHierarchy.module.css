@@ -1,3 +1,59 @@
 .button {
   margin-left: 12px;
 }
+
+.legend {
+  background-color: var(--bg-secondary-color);
+  margin-top: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.legend-employees {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.legend-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.high-rating {
+  background-color: #a3be8c;
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+}
+
+.middle-rating {
+  background-color: #ebcb8b;
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+}
+
+.low-rating {
+  background-color: #bf616a;
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+}
+
+.no-rating {
+  background-color: #f0f0f0;
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+}
+
+.subdivision-legend {
+  background-color: #e6f7ff;
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+}

@@ -21,6 +21,7 @@ import { Button, ButtonTheme } from "@shared/ui/Button";
 import { getLayoutedElements } from "@shared/lib";
 import { EmployeeDetailsModal } from "@features/employee-details";
 import styles from "./SubdivisionsHierarchy.module.css";
+import { Text } from "@shared/ui/text";
 
 const fitViewOptions: FitViewOptions = {
   padding: 0.2,
@@ -113,6 +114,34 @@ export const SubdivisionsHierarchy = () => {
           >
             {t("горизонтально")}
           </Button>
+          <div className={styles.legend}>
+            <Text centered>{t("Легенда")}</Text>
+
+            <div className={styles["legend-row"]}>
+              <div className={styles["subdivision-legend"]}></div>
+              <Text>- {t("Отделы")}</Text>
+            </div>
+
+            <div className={styles["legend-employees"]}>
+              <Text>{t("Сотрудники")}</Text>
+              <div className={styles["legend-row"]}>
+                <div className={styles["high-rating"]}></div>
+                <Text>- {t("Высокие показатели")}</Text>
+              </div>
+              <div className={styles["legend-row"]}>
+                <div className={styles["middle-rating"]}></div>
+                <Text>- {t("Средние показатели")}</Text>
+              </div>
+              <div className={styles["legend-row"]}>
+                <div className={styles["low-rating"]}></div>
+                <Text>- {t("Низкие показатели")}</Text>
+              </div>
+              <div className={styles["legend-row"]}>
+                <div className={styles["no-rating"]}></div>
+                <Text>- {t("Без оценки")}</Text>
+              </div>
+            </div>
+          </div>
         </Panel>
         <Background />
       </ReactFlow>
