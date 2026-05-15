@@ -4,6 +4,7 @@ import { create } from "zustand";
 interface AuthStore {
   name?: string;
   isAuthenticated: boolean;
+  isLoading: boolean;
   setAuthData: (authData: string) => void;
   initialize: () => void;
   logout: () => void;
@@ -12,6 +13,7 @@ interface AuthStore {
 export const useAuthStore = create<AuthStore>((set) => ({
   name: "test name",
   isAuthenticated: false,
+  isLoading: true,
   setAuthData: (authData) => {
     set({ isAuthenticated: !!authData });
     localStorage.setItem(TOKEN_LOCALSTORAGE_KEY, authData);
@@ -22,6 +24,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
     if (token) {
       set({ isAuthenticated: true });
     }
+    set({ isLoading: false });
   },
   logout: () => {
     set({ isAuthenticated: false });

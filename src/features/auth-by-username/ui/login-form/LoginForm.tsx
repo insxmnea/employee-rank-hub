@@ -18,19 +18,27 @@ export const LoginForm = memo(() => {
 
   return (
     <div className={styles.loginForm}>
-      {!!error && <div>{t("Неверный логин или пароль")}</div>}
-
       <Input
         value={username}
-        placeholder="Имя"
+        placeholder="Логин"
         onChange={(value) => setUsername(value)}
+        error={!!error}
         autofocus
       />
       <Input
         value={password}
         placeholder="Пароль"
+        type="password"
         onChange={(value) => setPassword(value)}
+        error={!!error}
       />
+
+      {!!error && (
+        <div className={styles.error__text}>
+          {t("Неверный логин или пароль")}
+        </div>
+      )}
+
       <Button
         className={styles.loginForm__button}
         onClick={onLoginClick}
@@ -38,6 +46,12 @@ export const LoginForm = memo(() => {
       >
         {t("Вход")}
       </Button>
+      <a
+        className={styles.password_recovery}
+        href="mailto:info@://example.com письма&body=Запрос на восстановление пароля"
+      >
+        {t("Забыли пароль?")} <i className="nf nf-oct-mail"></i>
+      </a>
     </div>
   );
 });

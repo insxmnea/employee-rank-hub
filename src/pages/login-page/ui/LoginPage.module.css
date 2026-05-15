@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 24px;
+  background-color: var(--bg-secondary-color);
+  border-radius: 8px;
+  gap: 12px;
+}

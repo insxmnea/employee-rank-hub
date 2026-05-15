@@ -12,6 +12,7 @@ interface InputProps extends HTMLInputProps {
   value?: string;
   placeholder?: string;
   autofocus?: boolean;
+  error?: boolean;
   onChange?: (value: string) => void;
 }
 
@@ -23,6 +24,7 @@ export const Input = memo(
     type = "text",
     placeholder,
     autofocus,
+    error = false,
     ...props
   }: InputProps) => {
     const ref = useRef<HTMLInputElement>(null);
@@ -39,9 +41,25 @@ export const Input = memo(
 
     return (
       <div className={classnames(styles.inputWrapper, {}, [className])}>
-        <span className={styles.placeholder}>{placeholder}</span>
+        <span
+          className={classnames(
+            styles.placeholder,
+            {
+              [styles.placeholderError]: error,
+            },
+            [],
+          )}
+        >
+          {placeholder}
+        </span>
         <input
-          className={styles.input}
+          className={classnames(
+            styles.input,
+            {
+              [styles.inputError]: error,
+            },
+            [],
+          )}
           ref={ref}
           type={type}
           value={value}

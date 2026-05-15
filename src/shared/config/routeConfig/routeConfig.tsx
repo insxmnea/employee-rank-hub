@@ -1,9 +1,11 @@
 import { AboutPage } from "@pages/about-page";
 import { EmployeeTablePage } from "@pages/employee-table-page";
+import { LoginPage } from "@pages/login-page";
 import { MainPage } from "@pages/main-page";
 import { NotFoundPage } from "@pages/not-found-page";
 import { RankPage } from "@pages/rank-page";
-import { RouteProps } from "react-router";
+import { MainLayout, PrivateLayout } from "@widgets/layouts";
+import { RouteObject } from "react-router";
 
 export enum AppRoutes {
   MAIN = "main",
@@ -11,6 +13,7 @@ export enum AppRoutes {
   EMPLOYEE_TABLE = "employee_table",
   ABOUT = "about",
   NOT_FOUND = "not_found",
+  LOGIN = "login",
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
@@ -18,28 +21,43 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.RANK]: "/rank",
   [AppRoutes.EMPLOYEE_TABLE]: "/employee_table",
   [AppRoutes.ABOUT]: "/about",
+  [AppRoutes.LOGIN]: "/login",
   [AppRoutes.NOT_FOUND]: "*",
 };
 
-export const routeConfig: Record<AppRoutes, RouteProps> = {
-  [AppRoutes.MAIN]: {
-    path: RoutePath.main,
-    element: <MainPage />,
+export const routeConfig: RouteObject[] = [
+  {
+    element: <MainLayout />,
+    children: [
+      {
+        path: RoutePath.main,
+        element: <MainPage />,
+      },
+      {
+        path: RoutePath.rank,
+        element: <RankPage />,
+      },
+      {
+        path: RoutePath.employee_table,
+        element: <EmployeeTablePage />,
+      },
+      {
+        path: RoutePath.about,
+        element: <AboutPage />,
+      },
+      {
+        path: RoutePath.not_found,
+        element: <NotFoundPage />,
+      },
+    ],
   },
-  [AppRoutes.RANK]: {
-    path: RoutePath.rank,
-    element: <RankPage />,
+  {
+    element: <PrivateLayout />,
+    children: [
+      {
+        path: RoutePath.login,
+        element: <LoginPage />,
+      },
+    ],
   },
-  [AppRoutes.EMPLOYEE_TABLE]: {
-    path: RoutePath.employee_table,
-    element: <EmployeeTablePage />,
-  },
-  [AppRoutes.ABOUT]: {
-    path: RoutePath.about,
-    element: <AboutPage />,
-  },
-  [AppRoutes.NOT_FOUND]: {
-    path: RoutePath.not_found,
-    element: <NotFoundPage />,
-  },
-};
+];

@@ -8,3 +8,17 @@
 .loginForm__button {
   margin-top: 24px;
 }
+
+.error__text {
+  color: var(--nord11);
+}
+
+.password_recovery {
+  display: flex;
+  align-items: center;
+  align-self: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+  color: var(--primary-color);
+  text-decoration: none;
+}
