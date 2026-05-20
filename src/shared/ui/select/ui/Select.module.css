@@ -1,0 +1,23 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.select {
+  outline: none;
+  padding: 7px 4px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--nord10);
+}
+
+.placeholder {
+  color: var(--primary-color);
+}
+
+.selectError {
+  border: 1px solid var(--nord11);
+}
+
+.placeholderError {
+  color: var(--nord11);
+}

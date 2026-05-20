@@ -1,4 +1,5 @@
 import { AboutPage } from "@pages/about-page";
+import { CreateEmployeePage } from "@pages/create-employee-page";
 import { EmployeeTablePage } from "@pages/employee-table-page";
 import { LoginPage } from "@pages/login-page";
 import { MainPage } from "@pages/main-page";
@@ -10,6 +11,7 @@ import { RouteObject } from "react-router";
 export enum AppRoutes {
   MAIN = "main",
   RANK = "rank",
+  CREATE_EMPLOYEE = "create_employee",
   EMPLOYEE_TABLE = "employee_table",
   ABOUT = "about",
   NOT_FOUND = "not_found",
@@ -19,6 +21,7 @@ export enum AppRoutes {
 export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.MAIN]: "/",
   [AppRoutes.RANK]: "/rank",
+  [AppRoutes.CREATE_EMPLOYEE]: "/create_employee",
   [AppRoutes.EMPLOYEE_TABLE]: "/employee_table",
   [AppRoutes.ABOUT]: "/about",
   [AppRoutes.LOGIN]: "/login",
@@ -36,6 +39,10 @@ export const routeConfig: RouteObject[] = [
       {
         path: RoutePath.rank,
         element: <RankPage />,
+      },
+      {
+        path: RoutePath.create_employee,
+        element: <CreateEmployeePage />,
       },
       {
         path: RoutePath.employee_table,

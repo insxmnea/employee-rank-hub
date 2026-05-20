@@ -40,24 +40,30 @@ export const EmployeeTable = (props: EmployeeTableProps) => {
     setEmployeeId("");
   };
 
-  const tableContent = data?.data.map((employee, index) => (
-    <tr
-      className={styles.tr}
-      key={employee.id}
-      onClick={() => handleRowClick(employee.id)}
-    >
-      <Td centered>{index + 1}</Td>
-      <Td centered>{`${employee.topsisScore.toFixed(2) ?? "-"}`}</Td>
-      <Td className={styles.deltaAssessment} centered>
-        {getDeltaIcon(employee.delta)}{" "}
-        {employee.employeeCurrentAssessment ?? "—"}
-      </Td>
-      <Td>{`${employee.lastName ?? "-"} ${employee.firstName ?? "-"} ${employee.patronymic ?? "-"}`}</Td>
-      <Td>{`${employee.subdivision.name ?? "-"}`}</Td>
-      <Td>{`${employee.profession ?? "-"}`}</Td>
-      <Td>{`${employee.role ?? "-"}`}</Td>
-    </tr>
-  ));
+  const filteredContent = data?.data.filter(
+    (employee) => !!employee.topsisScore,
+  );
+
+  const tableContent = filteredContent?.map((employee, index) => {
+    return (
+      <tr
+        className={styles.tr}
+        key={employee.id}
+        onClick={() => handleRowClick(employee.id)}
+      >
+        <Td centered>{index + 1}</Td>
+        <Td centered>{`${employee.topsisScore?.toFixed(2) ?? "-"}`}</Td>
+        <Td className={styles.deltaAssessment} centered>
+          {getDeltaIcon(employee.delta)}{" "}
+          {employee.employeeCurrentAssessment ?? "—"}
+        </Td>
+        <Td>{`${employee.lastName ?? "-"} ${employee.firstName ?? "-"} ${employee.patronymic ?? "-"}`}</Td>
+        <Td>{`${employee.subdivision.name ?? "-"}`}</Td>
+        <Td>{`${employee.profession ?? "-"}`}</Td>
+        <Td>{`${employee.role ?? "-"}`}</Td>
+      </tr>
+    );
+  });
 
   return (
     <>
@@ -70,7 +76,7 @@ export const EmployeeTable = (props: EmployeeTableProps) => {
             <th className={styles.th}>{t("ФИО сотрудника")}</th>
             <th className={styles.th}>{t("Отдел")}</th>
             <th className={styles.th}>{t("Должность")}</th>
-            <th className={styles.th}>{t("Позиция")}</th>
+            <th className={styles.th}>{t("Уровень квалификации")}</th>
           </tr>
         </thead>
         <tbody>{tableContent}</tbody>

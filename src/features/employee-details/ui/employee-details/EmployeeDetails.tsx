@@ -54,7 +54,7 @@ const EmployeeDetails = ({ id }: EmployeeDetailsProps) => {
       <div>{`${t("Speed")}: ${data?.data.averageSpeed}`}</div>
       <div>{`${t("Team work")}: ${data?.data.averageTeamWork}`}</div>
 
-      <Text>{`${t("Рейтинг TOPSIS")}: ${data?.data.topsisScore.toFixed(4)}`}</Text>
+      <Text>{`${t("Рейтинг TOPSIS")}: ${data?.data.topsisScore?.toFixed(2) ?? "Недостаточно данных"}`}</Text>
 
       <Text>{`${t("Общий балл")}: ${data?.data.employeeCurrentAssessment ?? "Недостаточно данных"}`}</Text>
 

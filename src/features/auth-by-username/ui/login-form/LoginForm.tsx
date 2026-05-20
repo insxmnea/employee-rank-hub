@@ -50,7 +50,7 @@ export const LoginForm = memo(() => {
         className={styles.password_recovery}
         href="mailto:info@://example.com письма&body=Запрос на восстановление пароля"
       >
-        {t("Забыли пароль?")} <i className="nf nf-oct-mail"></i>
+        {t("Техподдержка")} <i className="nf nf-oct-mail"></i>
       </a>
     </div>
   );

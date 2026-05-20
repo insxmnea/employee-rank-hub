@@ -134,14 +134,14 @@ export const SubdivisionsHierarchy = () => {
             theme={ButtonTheme.BACKGROUND_INVERTED}
             onClick={() => onLayout("TB")}
           >
-            {t("вертикально")}
+            {t("горизонтально")}
           </Button>
           <Button
             className={styles.button}
             theme={ButtonTheme.BACKGROUND_INVERTED}
             onClick={() => onLayout("LR")}
           >
-            {t("горизонтально")}
+            {t("вертикально")}
           </Button>
         </Panel>
         <Background />

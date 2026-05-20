@@ -1,1 +1,2 @@
-export { Subdivision, Subdivisions } from "./model/types";
+export { type Subdivision, type Subdivisions } from "./model/types";
+export { subdivisionQueries } from "./api/subdivision.queries";

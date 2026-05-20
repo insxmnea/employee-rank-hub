@@ -1,1 +1,1 @@
-export { CreateEmployeePage } from "./ui/CreateEmployeePage";
+export { CreateEmployeePageAsync as CreateEmployeePage } from "./ui/CreateEmployeePage.async";
