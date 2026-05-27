@@ -1,0 +1,12 @@
+.tr {
+  background-color: var(--bg-color);
+  cursor: pointer;
+}
+
+.tr:nth-child(even) {
+  background-color: var(--bg3-color);
+}
+
+.tr:hover {
+  background-color: var(--bg3-color);
+}

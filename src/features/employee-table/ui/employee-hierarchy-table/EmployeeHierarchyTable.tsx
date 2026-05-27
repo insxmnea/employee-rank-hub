@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import styles from "./EmployeeTable.module.css";
+import styles from "./EmployeeHierarchyTable.module.css";
 import { employeeQueries } from "@entities/employee";
 import { Loader } from "@shared/ui/Loader";
 import { useTranslation } from "react-i18next";
@@ -19,9 +19,7 @@ const getDeltaIcon = (delta: "up" | "down") => {
   );
 };
 
-interface EmployeeTableProps {}
-
-export const EmployeeTable = (props: EmployeeTableProps) => {
+export const EmployeeHierarchyTable = () => {
   const { t } = useTranslation();
   const { data, isLoading } = useQuery(employeeQueries.employeesRank());
 

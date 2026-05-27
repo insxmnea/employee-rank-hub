@@ -1,17 +1,19 @@
 import { classnames } from "@shared/lib/classnames";
 import styles from "./Select.module.css";
-import React, { ChangeEvent, memo } from "react";
+import React, { ChangeEvent, InputHTMLAttributes, memo } from "react";
 
 type SelectValue = string | number;
 
 type OptionItem = { value: SelectValue; label: string } | string;
 
-interface SelectProps {
+interface SelectProps extends Omit<
+  InputHTMLAttributes<HTMLSelectElement>,
+  "onChange"
+> {
   options: OptionItem[];
   value: SelectValue;
   defaultValue?: string;
   placeholder?: string;
-  disabled?: boolean;
   className?: string;
   error?: boolean;
   onChange: (value: SelectValue) => void;
@@ -24,7 +26,6 @@ export const Select = memo(
     defaultValue,
     placeholder,
     error = false,
-    disabled = false,
     options,
     onChange,
     ...props
@@ -59,7 +60,6 @@ export const Select = memo(
         <select
           value={String(value)}
           onChange={handleChange}
-          disabled={disabled}
           className={classnames(
             styles.select,
             {

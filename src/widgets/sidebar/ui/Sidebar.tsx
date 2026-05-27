@@ -33,6 +33,10 @@ export const Sidebar = () => {
         </AppLink>
         <AppLink to={RoutePath.employee_table} className={styles.link}>
           <i className="nf nf-fa-table"></i>
+          <span className={styles.linkText}>{t("Сотрудники")}</span>
+        </AppLink>
+        <AppLink to={RoutePath.employee_hierarchy} className={styles.link}>
+          <i className="nf nf-oct-graph"></i>
           <span className={styles.linkText}>{t("Иерархия сотрудников")}</span>
         </AppLink>
         <AppLink to={RoutePath.create_employee} className={styles.link}>

@@ -54,7 +54,7 @@ export const CreateEmployeeForm = (props: CreateEmployeeFormProps) => {
   ]);
 
   return (
-    <div className={styles.wrapper}>
+    <form className={styles.wrapper} onSubmit={onSubmit}>
       <div className={styles.grid}>
         <div>
           <Input
@@ -63,12 +63,14 @@ export const CreateEmployeeForm = (props: CreateEmployeeFormProps) => {
             onChange={(value) => setFirstName(value)}
             error={!!error}
             autofocus
+            required
           />
           <Input
             value={lastName}
             placeholder="Фамилия"
             onChange={(value) => setLastName(value)}
             error={!!error}
+            required
           />
           <Input
             value={patronymic}
@@ -82,6 +84,7 @@ export const CreateEmployeeForm = (props: CreateEmployeeFormProps) => {
             placeholder="Дата рождения"
             onChange={(value) => setBirthday(value)}
             error={!!error}
+            required
           />
         </div>
 
@@ -111,6 +114,7 @@ export const CreateEmployeeForm = (props: CreateEmployeeFormProps) => {
             placeholder="Специальность"
             onChange={(value) => setProfession(value)}
             error={!!error}
+            required
           />
           <Select
             value={String(subdivisionId)}
@@ -124,12 +128,12 @@ export const CreateEmployeeForm = (props: CreateEmployeeFormProps) => {
 
       <Button
         className={styles.submit_btn}
-        onClick={onSubmit}
         disabled={isPending}
         theme={ButtonTheme.OUTLINE}
+        type="submit"
       >
         {t("Добавить сотрудника")}
       </Button>
-    </div>
+    </form>
   );
 };

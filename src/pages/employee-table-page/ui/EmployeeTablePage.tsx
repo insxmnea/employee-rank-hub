@@ -8,7 +8,7 @@ const EmployeeTablePage = () => {
   return (
     <div>
       <Text size="l" centered className={styles.header}>
-        {t("Иерархия сотрудников")}
+        {t("Сотрудники")}
       </Text>
       <EmployeeTable />
     </div>

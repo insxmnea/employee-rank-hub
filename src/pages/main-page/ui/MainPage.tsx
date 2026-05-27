@@ -14,6 +14,7 @@ const MainPage: FC = () => {
 
       <div className={styles.widgets}>
         <TotalEmployeeCount />
+        <TopEmployeeChart />
       </div>
     </>
   );
