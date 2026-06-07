@@ -43,10 +43,10 @@ export const Sidebar = () => {
           <i className="nf nf-fa-user_plus"></i>
           <span className={styles.linkText}>{t("Добавить сотрудника")}</span>
         </AppLink>
-        <AppLink to={RoutePath.about} className={styles.link}>
+        {/* <AppLink to={RoutePath.about} className={styles.link}>
           <i className="nf nf-md-information_outline"></i>
           <span className={styles.linkText}>{t("About page")}</span>
-        </AppLink>
+        </AppLink> */}
       </div>
 
       <div className={styles.switchers}>

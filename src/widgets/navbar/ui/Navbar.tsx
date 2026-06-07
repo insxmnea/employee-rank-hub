@@ -12,6 +12,8 @@ export const Navbar = () => {
   const logout = useAuthStore((state) => state.logout);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
+  // const { data, isLoading } = useQuery(authQueries.profile());
+
   const onOpenModal = useCallback(() => {
     setIsAuthModal(true);
   }, []);

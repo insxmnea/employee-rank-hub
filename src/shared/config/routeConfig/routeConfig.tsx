@@ -1,6 +1,7 @@
 import { AboutPage } from "@pages/about-page";
 import { CreateEmployeePage } from "@pages/create-employee-page";
 import { EmployeeHierarchyPage } from "@pages/employee-hierarchy-page";
+import { EmployeePage } from "@pages/employee-page";
 import { EmployeeTablePage } from "@pages/employee-table-page";
 import { LoginPage } from "@pages/login-page";
 import { MainPage } from "@pages/main-page";
@@ -15,6 +16,7 @@ export enum AppRoutes {
   CREATE_EMPLOYEE = "create_employee",
   EMPLOYEE_TABLE = "employee_table",
   EMPLOYEE_HIERARCHY = "employee_hierarchy",
+  EMPLOYEE = "employee",
   ABOUT = "about",
   NOT_FOUND = "not_found",
   LOGIN = "login",
@@ -26,6 +28,7 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.CREATE_EMPLOYEE]: "/create_employee",
   [AppRoutes.EMPLOYEE_TABLE]: "/employee_table",
   [AppRoutes.EMPLOYEE_HIERARCHY]: "/employee_hierarchy",
+  [AppRoutes.EMPLOYEE]: "/employee",
   [AppRoutes.ABOUT]: "/about",
   [AppRoutes.LOGIN]: "/login",
   [AppRoutes.NOT_FOUND]: "*",
@@ -42,6 +45,10 @@ export const routeConfig: RouteObject[] = [
       {
         path: RoutePath.rank,
         element: <RankPage />,
+      },
+      {
+        path: `${RoutePath.employee}/:employeeId`,
+        element: <EmployeePage />,
       },
       {
         path: RoutePath.create_employee,

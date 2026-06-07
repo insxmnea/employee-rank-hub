@@ -6,6 +6,8 @@ import { useTranslation } from "react-i18next";
 import { Table, Td, Th, Thead, Tr } from "@shared/ui/table";
 import { EmployeeDetailsModal } from "@features/employee-details";
 import { useState } from "react";
+import { useNavigate } from "react-router";
+import { RoutePath } from "@shared/config/routeConfig";
 
 const getDeltaIcon = (delta: "up" | "down") => {
   return delta === "up" ? (
@@ -19,11 +21,10 @@ const getDeltaIcon = (delta: "up" | "down") => {
   );
 };
 
-interface EmployeeTableProps {}
-
-export const EmployeeTable = (props: EmployeeTableProps) => {
+export const EmployeeTable = () => {
   const { t } = useTranslation();
   const { data, isLoading } = useQuery(employeeQueries.employeesRank());
+  const navigate = useNavigate();
 
   const [isSideModal, setIsSideModal] = useState(false);
   const [employeeId, setEmployeeId] = useState("");
@@ -31,8 +32,9 @@ export const EmployeeTable = (props: EmployeeTableProps) => {
   if (isLoading) return <Loader centered />;
 
   const handleRowClick = (id: string) => {
-    setIsSideModal(true);
-    setEmployeeId(id);
+    navigate(`${RoutePath.employee}/${id}`);
+    // setIsSideModal(true);
+    // setEmployeeId(id);
   };
 
   const onCloseSideModal = () => {

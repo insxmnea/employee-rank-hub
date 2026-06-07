@@ -5,6 +5,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import styles from "./EmployeeDetails.module.css";
 import { EmployeeRecommendation } from "../employee-recommendation/EmployeeRecommendation";
+import { AppLink } from "@shared/ui/AppLink";
+import { RoutePath } from "@shared/config/routeConfig";
 
 const getGender = (gender?: string) => {
   if (!gender) return "-";
@@ -42,6 +44,11 @@ const EmployeeDetails = ({ id }: EmployeeDetailsProps) => {
           <Text>{`${t("Birthday")}: ${data?.data.birthday}`}</Text>
           <Text>{`${t("Profession")}: ${data?.data.profession}`}</Text>
           <Text>{`${t("Grade")}: ${data?.data.role}`}</Text>
+
+          <AppLink to={`${RoutePath.employee}/${id}`} className={styles.link}>
+            <i className="nf nf-fa-clipboard_user"></i>
+            <Text>{t("Перейти в профиль")}</Text>
+          </AppLink>
         </div>
       </div>
       <Text size="l" centered className={styles["average-statistics-text"]}>
