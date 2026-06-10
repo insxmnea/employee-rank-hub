@@ -9,6 +9,9 @@ import { useTranslation } from "react-i18next";
 import { AssessmentsChart } from "@widgets/assessments-chart";
 import { EmployeeScoreChart } from "@widgets/employee-score-chart";
 import { EmployeeScoreChartDataAdapter } from "../adapters";
+import { ProgressBar } from "@shared/ui/progress-bar";
+import { DeltaIcon } from "@shared/ui/delta-icon";
+import { Flex } from "@shared/ui/flex";
 
 const getGender = (gender?: string) => {
   if (!gender) return "-";
@@ -55,9 +58,30 @@ const EmployeePage = () => {
         />
 
         <div className={styles.result_score}>
-          <Text>{`${t("Рейтинг TOPSIS")}: ${data?.data.topsisScore?.toFixed(2) ?? "Недостаточно данных"}`}</Text>
+          <div>
+            <Text>{`${t("Рейтинг TOPSIS")}: ${data?.data.topsisScore?.toFixed(2) ?? "Недостаточно данных"}`}</Text>
 
-          <Text>{`${t("Общий балл")}: ${data?.data.employeeCurrentAssessment ?? "Недостаточно данных"}`}</Text>
+            {data?.data.topsisScore && (
+              <ProgressBar
+                maxValue={1}
+                value={+data?.data.topsisScore?.toFixed(2)}
+              />
+            )}
+          </div>
+
+          <div>
+            <Flex align="center" gap={6}>
+              <Text>{`${t("Общий балл")}: ${data?.data.employeeCurrentAssessment ?? "Недостаточно данных"}`}</Text>
+              <DeltaIcon delta={data?.data.delta} />
+            </Flex>
+
+            {data?.data.employeeCurrentAssessment && (
+              <ProgressBar
+                maxValue={5}
+                value={+data?.data.employeeCurrentAssessment}
+              />
+            )}
+          </div>
         </div>
       </div>
       <Text size="l" centered className={styles["average-statistics-text"]}>

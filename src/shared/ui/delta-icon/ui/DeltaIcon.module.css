@@ -1,0 +1,9 @@
+.upIcon {
+  color: var(--nord14);
+  font-size: 24px;
+}
+
+.downIcon {
+  color: var(--nord11);
+  font-size: 24px;
+}

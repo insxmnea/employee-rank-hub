@@ -1,58 +1,60 @@
-import {
-  Area,
-  CartesianGrid,
-  createHorizontalChart,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
-
-type MyData = {
-  name: string;
-  uv: number;
-  pv: number;
-  amt: number;
-};
-
-const Typed = createHorizontalChart<MyData, string, number>()({
-  XAxis,
-  YAxis,
-  Area,
-});
-
-const data: MyData[] = [
-  { name: "Page A", uv: 4000, pv: 2400, amt: 2400 },
-  { name: "Page B", uv: 3000, pv: 1398, amt: 2210 },
-  { name: "Page C", uv: 2000, pv: 9800, amt: 2290 },
-  { name: "Page D", uv: 2780, pv: 3908, amt: 2000 },
-  { name: "Page E", uv: 1890, pv: 4800, amt: 2181 },
-  { name: "Page F", uv: 2390, pv: 3800, amt: 2500 },
-  { name: "Page G", uv: 3490, pv: 4300, amt: 2100 },
-];
+import { employeeQueries } from "@entities/employee";
+import { RoutePath } from "@shared/config/routeConfig";
+import { AppLink } from "@shared/ui/AppLink";
+import { Card } from "@shared/ui/card";
+import { Loader } from "@shared/ui/Loader";
+import { Table, Td, Th, Thead, Tr } from "@shared/ui/table";
+import { Text } from "@shared/ui/text";
+import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
+import styles from "./TopEmployeeChart.module.css";
+import { useNavigate } from "react-router";
 
 export const TopEmployeeChart = () => {
+  const { t } = useTranslation();
+  const { data, isLoading } = useQuery(employeeQueries.employeesRank());
+  const navigate = useNavigate();
+
+  if (isLoading) return <Loader centered />;
+
+  const handleRowClick = (id: string) => {
+    navigate(`${RoutePath.employee}/${id}`);
+  };
+
+  const filteredContent = data?.data
+    .filter((employee) => !!employee.topsisScore)
+    .slice(0, 5);
+
+  const tableContent = filteredContent?.map((employee, index) => {
+    return (
+      <Tr key={employee.id} onClick={() => handleRowClick(employee.id)}>
+        <Td centered>{index + 1}</Td>
+        <Td>{`${employee.lastName ?? "-"} ${employee.firstName ?? "-"}`}</Td>
+        <Td>{`${employee.profession ?? "-"}`}</Td>
+        <Td>{`${employee.subdivision.name ?? "-"}`}</Td>
+      </Tr>
+    );
+  });
+
   return (
-    <Typed.AreaChart
-      width={500}
-      height={400}
-      data={data}
-      margin={{
-        top: 10,
-        right: 30,
-        left: 0,
-        bottom: 0,
-      }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <Typed.XAxis dataKey="name" />
-      <Typed.YAxis />
-      <Tooltip />
-      <Typed.Area
-        type="monotone"
-        dataKey="uv"
-        stroke="#ffc658"
-        fill="#ffc658"
-      />
-    </Typed.AreaChart>
+    <Card className={styles.wrapper}>
+      <Text centered size="l">
+        {t("Лучшие сотрудники")}
+      </Text>
+
+      <Table>
+        <Thead>
+          <Th>{t("Ранг")}</Th>
+          <Th>{t("Имя")}</Th>
+          <Th>{t("Должность")}</Th>
+          <Th>{t("Отдел")}</Th>
+        </Thead>
+        <tbody>{tableContent}</tbody>
+      </Table>
+
+      <AppLink to={RoutePath.employee_hierarchy} className={styles.link}>
+        {t("Показать все")}
+      </AppLink>
+    </Card>
   );
 };

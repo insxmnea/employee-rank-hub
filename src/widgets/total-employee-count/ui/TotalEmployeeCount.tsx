@@ -1,90 +1,44 @@
-import { employeeQueries } from "@entities/employee";
 import { Card } from "@shared/ui/card";
 import { Text } from "@shared/ui/text";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import styles from "./TotalEmployeeCount.module.css";
+import { Loader } from "@shared/ui/Loader";
+import { subdivisionQueries } from "@entities/subdivision";
 import {
-  Area,
+  Bar,
+  BarChart,
   CartesianGrid,
-  createHorizontalChart,
-  Label,
-  Pie,
-  PieChart,
+  ErrorBar,
+  Legend,
+  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
-import styles from "./TotalEmployeeCount.module.css";
-import { useTheme } from "@app/providers/theme";
-import { Theme } from "@app/providers/theme/lib/ThemeContext";
-import { Loader } from "@shared/ui/Loader";
-
-type MyData = {
-  name: string;
-  uv: number;
-  pv: number;
-  amt: number;
-};
-
-const Typed = createHorizontalChart<MyData, string, number>()({
-  XAxis,
-  YAxis,
-  Area,
-});
-
-const data: MyData[] = [
-  { name: "Page A", uv: 4000, pv: 2400, amt: 2400 },
-  { name: "Page B", uv: 3000, pv: 1398, amt: 2210 },
-  { name: "Page C", uv: 2000, pv: 9800, amt: 2290 },
-  { name: "Page D", uv: 2780, pv: 3908, amt: 2000 },
-  { name: "Page E", uv: 1890, pv: 4800, amt: 2181 },
-  { name: "Page F", uv: 2390, pv: 3800, amt: 2500 },
-  { name: "Page G", uv: 3490, pv: 4300, amt: 2100 },
-];
 
 export const TotalEmployeeCount = () => {
   const { t } = useTranslation();
-  const { data, isLoading } = useQuery(employeeQueries.allEmployees());
-  const { theme } = useTheme();
-  const pieChartLabelColor = theme === Theme.DARK ? "#fff" : "#000";
-  const upEmployeesCount = data?.data.filter(
-    (employee) => employee.delta === "up",
-  ).length;
-  const downEmployeesCount = data?.data.filter(
-    (employee) => employee.delta === "down",
-  ).length;
+  const { data, isLoading } = useQuery(subdivisionQueries.allSubdivisions());
 
-  const resData = [
-    {
-      name: "Сотрудники с положительной динамикой",
-      value: data?.data.filter((employee) => employee.delta === "up").length,
-      fill: "#a3be8c",
-    },
-    {
-      name: "Сотрудники с отрицательной динамикой",
-      value: data?.data.filter((employee) => employee.delta === "down").length,
-      fill: "#bf616a",
-    },
-  ];
+  const employeesCount = data?.data.reduce(
+    (acc, curr) => acc + curr.employees.length,
+    0,
+  );
 
-  const getPotentialPercent = () => {
-    if (data?.data) {
-      const percent = Math.floor(
-        (data?.data.filter((employee) => employee.delta === "up").length /
-          data?.data.length) *
-          100,
-      );
+  const subdivisionsCount = data?.data.length;
 
-      return `${percent}%`;
-    }
+  const assessmentsCount = data?.data.reduce(
+    (acc, curr) => acc + curr.assessmentsCount,
+    0,
+  );
 
-    return "0%";
-  };
+  if (!employeesCount || !subdivisionsCount) return null;
 
   return (
     <Card className={styles.wrapper}>
       <Text centered size="l">
-        {t("Динамика потенциала сотрудников")}
+        {t("Численность и отделы")}
       </Text>
 
       {isLoading ? (
@@ -92,75 +46,59 @@ export const TotalEmployeeCount = () => {
           <Loader />
         </div>
       ) : (
-        <div className={styles.content}>
-          <PieChart
-            style={{
-              width: "100%",
-              height: "100%",
-              maxWidth: "150px",
-              aspectRatio: 1,
+        <div className={styles.legend}>
+          <BarChart
+            accessibilityLayer
+            barCategoryGap="10%"
+            barGap={4}
+            data={[
+              {
+                name: "Отделы",
+                count: subdivisionsCount,
+              },
+              {
+                name: "Сотрудники",
+                count: employeesCount,
+              },
+              {
+                name: "Оценки",
+                count: assessmentsCount,
+              },
+            ]}
+            height={200}
+            layout="vertical"
+            margin={{
+              bottom: 5,
+              left: 50,
+              right: 30,
+              top: 20,
             }}
-            responsive
+            stackOffset="none"
+            syncMethod="index"
+            throttleDelay="raf"
+            throttledEvents={[
+              "mousemove",
+              "touchmove",
+              "pointermove",
+              "scroll",
+              "wheel",
+            ]}
+            width={500}
           >
-            <Pie
-              data={resData}
-              dataKey="value"
-              cx="50%"
-              cy="50%"
-              innerRadius="65%"
-              outerRadius="100%"
-              isAnimationActive
-            >
-              <Label position="center" fill={pieChartLabelColor} fontSize={22}>
-                {getPotentialPercent()}
-              </Label>
-            </Pie>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis type="number" />
+            <YAxis dataKey="name" type="category" />
+            <Legend />
             <Tooltip />
-          </PieChart>
-
-          {typeof upEmployeesCount === "number" &&
-            typeof downEmployeesCount === "number" && (
-              <div className={styles.legend}>
-                <div className={styles.legend__row}>
-                  <div
-                    className={styles.badge}
-                    style={{ backgroundColor: "#a3be8c" }}
-                  ></div>
-                  <Text>{`${t("Сотрудники с положительной динамикой")} - ${upEmployeesCount}`}</Text>
-                </div>
-                <div className={styles.legend__row}>
-                  <div
-                    className={styles.badge}
-                    style={{ backgroundColor: "#bf616a" }}
-                  ></div>
-                  <Text>{`${t("Сотрудники с отрицательной динамикой")} - ${downEmployeesCount}`}</Text>
-                </div>
-              </div>
-            )}
+            <Bar
+              dataKey="count"
+              name={"Количество"}
+              fill="#8884d8"
+              stackId="a"
+            />
+          </BarChart>
         </div>
       )}
     </Card>
-    // <Typed.AreaChart
-    //   width={500}
-    //   height={400}
-    //   data={data}
-    //   margin={{
-    //     top: 10,
-    //     right: 30,
-    //     left: 0,
-    //     bottom: 0,
-    //   }}
-    // >
-    //   <CartesianGrid strokeDasharray="3 3" />
-    //   <Typed.XAxis dataKey="name" />
-    //   <Typed.YAxis />
-    //   <Tooltip />
-    //   <Typed.Area
-    //     type="monotone"
-    //     dataKey="uv"
-    //     stroke="#ffc658"
-    //     fill="#ffc658"
-    //   />
-    // </Typed.AreaChart>
   );
 };

@@ -1,0 +1,19 @@
+.wrapper {
+  display: flex;
+  gap: 12px;
+  max-width: 650px;
+  min-height: 200px;
+}
+
+.link {
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+
+  &:hover {
+    color: var(--bg-secondary-color);
+    background-color: var(--secondary-color);
+  }
+}
