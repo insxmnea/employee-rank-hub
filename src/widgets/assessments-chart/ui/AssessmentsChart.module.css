@@ -1,0 +1,10 @@
+.group-btn {
+  &&.active {
+    background: var(--bg-secondary-color);
+    color: var(--primary-color);
+  }
+}
+
+/* .active {
+  background: #000;
+} */

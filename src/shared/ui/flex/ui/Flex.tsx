@@ -8,6 +8,7 @@ interface FlexProps {
   gap?: number;
   width?: string;
   children?: ReactNode;
+  mb?: number;
 }
 
 export const Flex = ({
@@ -16,6 +17,7 @@ export const Flex = ({
   justify,
   align,
   gap,
+  mb,
   children,
 }: FlexProps) => {
   return (
@@ -27,6 +29,7 @@ export const Flex = ({
         alignItems: align,
         gap: `${gap}px`,
         width,
+        marginBottom: `${mb}px`,
       }}
     >
       {children}

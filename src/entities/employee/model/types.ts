@@ -1,3 +1,4 @@
+import { Assessment } from "@entities/assessment";
 import { Subdivision } from "@entities/subdivision";
 
 export interface Employee {
@@ -27,6 +28,6 @@ export interface Employee {
   cardImage: string;
   profileImage: string;
   subdivision: Subdivision;
-  assessment: string[];
+  assessment: Assessment[];
   topsisScore: number;
 }

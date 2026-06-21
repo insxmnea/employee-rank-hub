@@ -72,7 +72,7 @@ const EmployeePage = () => {
           <div>
             <Flex align="center" gap={6}>
               <Text>{`${t("Общий балл")}: ${data?.data.employeeCurrentAssessment ?? "Недостаточно данных"}`}</Text>
-              <DeltaIcon delta={data?.data.delta} />
+              {/* <DeltaIcon delta={data?.data.delta} /> */}
             </Flex>
 
             {data?.data.employeeCurrentAssessment && (
@@ -85,10 +85,10 @@ const EmployeePage = () => {
         </div>
       </div>
       <Text size="l" centered className={styles["average-statistics-text"]}>
-        {t("Средние показатели")}
+        {t("Оценки по критериям за последние 6 месяцев")}
       </Text>
 
-      <AssessmentsChart />
+      <AssessmentsChart id={employeeId} assessments={data?.data.assessment} />
 
       <EmployeeRecommendation employeeId={Number(employeeId)} />
     </div>
