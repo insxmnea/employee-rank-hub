@@ -39,3 +39,7 @@
     background-color: var(--secondary-color);
   }
 }
+
+.radar_chart {
+  margin-top: 12px;
+}

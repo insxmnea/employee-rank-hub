@@ -7,6 +7,10 @@ import styles from "./EmployeeDetails.module.css";
 import { EmployeeRecommendation } from "../employee-recommendation/EmployeeRecommendation";
 import { AppLink } from "@shared/ui/AppLink";
 import { RoutePath } from "@shared/config/routeConfig";
+import { EmployeeScoreChart } from "@widgets/employee-score-chart";
+import { EmployeeScoreChartDataAdapter } from "@features/employee-details/adapters";
+import { ProgressBar } from "@shared/ui/progress-bar";
+import { Flex } from "@shared/ui/flex";
 
 const getGender = (gender?: string) => {
   if (!gender) return "-";
@@ -51,19 +55,36 @@ const EmployeeDetails = ({ id }: EmployeeDetailsProps) => {
           </AppLink>
         </div>
       </div>
-      <Text size="l" centered className={styles["average-statistics-text"]}>
-        {t("Average statistics")}
-      </Text>
-      <div>{`${t("Information")}: ${data?.data.averageInformation}`}</div>
-      <div>{`${t("Quality work")}: ${data?.data.averageQualityWork}`}</div>
-      <div>{`${t("Respect")}: ${data?.data.averageRespect}`}</div>
-      <div>{`${t("Result work")}: ${data?.data.averageResultWork}`}</div>
-      <div>{`${t("Speed")}: ${data?.data.averageSpeed}`}</div>
-      <div>{`${t("Team work")}: ${data?.data.averageTeamWork}`}</div>
 
-      <Text>{`${t("Рейтинг TOPSIS")}: ${data?.data.topsisScore?.toFixed(2) ?? "Недостаточно данных"}`}</Text>
+      <div>
+        <Text>{`${t("Рейтинг TOPSIS")}: ${data?.data.topsisScore?.toFixed(2) ?? "Недостаточно данных"}`}</Text>
 
-      <Text>{`${t("Общий балл")}: ${data?.data.employeeCurrentAssessment ?? "Недостаточно данных"}`}</Text>
+        {data?.data.topsisScore && (
+          <ProgressBar
+            maxValue={1}
+            value={+data?.data.topsisScore?.toFixed(2)}
+          />
+        )}
+      </div>
+
+      <div>
+        <Flex align="center" gap={6}>
+          <Text>{`${t("Общий балл")}: ${data?.data.employeeCurrentAssessment ?? "Недостаточно данных"}`}</Text>
+          {/* <DeltaIcon delta={data?.data.delta} /> */}
+        </Flex>
+
+        {data?.data.employeeCurrentAssessment && (
+          <ProgressBar
+            maxValue={5}
+            value={+data?.data.employeeCurrentAssessment}
+          />
+        )}
+      </div>
+
+      <EmployeeScoreChart
+        data={EmployeeScoreChartDataAdapter(data?.data)}
+        className={styles.radar_chart}
+      />
 
       <EmployeeRecommendation employeeId={Number(id)} />
     </div>
