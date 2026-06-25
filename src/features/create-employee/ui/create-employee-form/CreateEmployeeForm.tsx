@@ -7,6 +7,8 @@ import { useTranslation } from "react-i18next";
 import { Select } from "@shared/ui/select";
 import { useQuery } from "@tanstack/react-query";
 import { subdivisionQueries } from "@entities/subdivision";
+import { useNavigate } from "react-router";
+import { RoutePath } from "@shared/config/routeConfig";
 
 interface CreateEmployeeFormProps {}
 
@@ -21,13 +23,15 @@ export const CreateEmployeeForm = (props: CreateEmployeeFormProps) => {
   const [role, setRole] = useState<"Junior" | "Middle" | "Senior">();
   const [profession, setProfession] = useState("");
   const [subdivisionId, setSubdivisionId] = useState<number>();
+  const navigate = useNavigate();
 
   const { data: subdivisions, isLoading: isSubdivisionsLoading } = useQuery(
     subdivisionQueries.allSubdivisions(),
   );
-  const subdivisionsOptions = subdivisions?.data.map((subdivision) => {
-    return { value: subdivision.id, label: subdivision.name };
-  });
+  const subdivisionsOptions =
+    subdivisions?.data.map((subdivision) => {
+      return { value: subdivision.id, label: subdivision.name };
+    }) ?? [];
   const { mutate, error, isPending } = useCreateEmployee();
 
   const onSubmit = useCallback(() => {
@@ -41,6 +45,8 @@ export const CreateEmployeeForm = (props: CreateEmployeeFormProps) => {
       profession,
       subdivisionId,
     });
+
+    navigate(`${RoutePath.employee_table}`);
   }, [
     mutate,
     firstName,
@@ -51,6 +57,7 @@ export const CreateEmployeeForm = (props: CreateEmployeeFormProps) => {
     role,
     profession,
     subdivisionId,
+    navigate,
   ]);
 
   return (
@@ -118,7 +125,7 @@ export const CreateEmployeeForm = (props: CreateEmployeeFormProps) => {
           />
           <Select
             value={String(subdivisionId)}
-            options={subdivisionsOptions ?? []}
+            options={[{ value: "0", label: "" }, ...subdivisionsOptions]}
             placeholder="Подразделение"
             onChange={(value) => setSubdivisionId(+value)}
             disabled={isSubdivisionsLoading}

@@ -1,6 +1,6 @@
 import { Subdivisions } from "@entities/subdivision";
 import { Edge, Node } from "@xyflow/react";
-import { getEmployeeColor } from "./getEmployeeColor";
+import { getEmployeeColor, getEmployeeColorByTopsis } from "./getEmployeeColor";
 
 export const subdivisionDataToFlowElements = (
   subdivisions: Subdivisions | undefined,
@@ -54,7 +54,7 @@ export const subdivisionDataToFlowElements = (
         data: { label: `${employee.firstName} ${employee.lastName}` },
         position,
         style: {
-          backgroundColor: getEmployeeColor(employee.employeeCurrentAssessment),
+          backgroundColor: getEmployeeColorByTopsis(employee.topsisScore),
         },
       };
       nodes.push(employeeNode);

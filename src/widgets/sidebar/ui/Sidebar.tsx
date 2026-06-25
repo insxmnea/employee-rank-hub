@@ -32,7 +32,7 @@ export const Sidebar = () => {
           <span className={styles.linkText}>{t("Rank page")}</span>
         </AppLink>
         <AppLink to={RoutePath.employee_table} className={styles.link}>
-          <i className="nf nf-fa-table"></i>
+          <i className="nf nf-fa-users"></i>
           <span className={styles.linkText}>{t("Сотрудники")}</span>
         </AppLink>
         <AppLink to={RoutePath.weights_settings} className={styles.link}>
