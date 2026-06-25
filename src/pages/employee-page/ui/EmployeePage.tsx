@@ -58,30 +58,34 @@ const EmployeePage = () => {
         />
 
         <div className={styles.result_score}>
-          <div>
-            <Text>{`${t("Рейтинг TOPSIS")}: ${data?.data.topsisScore?.toFixed(2) ?? "Недостаточно данных"}`}</Text>
+          {!!data?.data.topsisScore && (
+            <div>
+              <Text>{`${t("Рейтинг TOPSIS")}: ${data?.data.topsisScore?.toFixed(2) ?? "Недостаточно данных"}`}</Text>
 
-            {data?.data.topsisScore && (
-              <ProgressBar
-                maxValue={1}
-                value={+data?.data.topsisScore?.toFixed(2)}
-              />
-            )}
-          </div>
+              {data?.data.topsisScore && (
+                <ProgressBar
+                  maxValue={1}
+                  value={+data?.data.topsisScore?.toFixed(2)}
+                />
+              )}
+            </div>
+          )}
 
-          <div>
-            <Flex align="center" gap={6}>
-              <Text>{`${t("Общий балл")}: ${data?.data.employeeCurrentAssessment ?? "Недостаточно данных"}`}</Text>
-              {/* <DeltaIcon delta={data?.data.delta} /> */}
-            </Flex>
+          {data?.data.employeeCurrentAssessment && (
+            <div>
+              <Flex align="center" gap={6}>
+                <Text>{`${t("Общий балл")}: ${data?.data.employeeCurrentAssessment ?? "Недостаточно данных"}`}</Text>
+                {/* <DeltaIcon delta={data?.data.delta} /> */}
+              </Flex>
 
-            {data?.data.employeeCurrentAssessment && (
-              <ProgressBar
-                maxValue={5}
-                value={+data?.data.employeeCurrentAssessment}
-              />
-            )}
-          </div>
+              {data?.data.employeeCurrentAssessment && (
+                <ProgressBar
+                  maxValue={5}
+                  value={+data?.data.employeeCurrentAssessment}
+                />
+              )}
+            </div>
+          )}
         </div>
       </div>
       <Text size="l" centered className={styles["average-statistics-text"]}>

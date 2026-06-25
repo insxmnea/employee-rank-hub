@@ -36,7 +36,7 @@ export const Sidebar = () => {
           <span className={styles.linkText}>{t("Сотрудники")}</span>
         </AppLink>
         <AppLink to={RoutePath.weights_settings} className={styles.link}>
-          <i className="nf nf-oct-graph"></i>
+          <i className="nf nf-seti-settings"></i>
           <span className={styles.linkText}>
             {t("Настройка весов критериев")}
           </span>

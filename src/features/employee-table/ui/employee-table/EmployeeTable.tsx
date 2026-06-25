@@ -141,12 +141,18 @@ export const EmployeeTable = () => {
     return (
       <Tr key={employee.id} onClick={() => handleRowClick(employee.id)}>
         <Td centered>{index + 1}</Td>
-        <Td centered>{`${employee.topsisScore?.toFixed(2) ?? "-"}`}</Td>
+        <Td
+          centered
+        >{`${Number(employee.topsisScore?.toFixed(2)) > 0 ? employee.topsisScore?.toFixed(2) : "—"}`}</Td>
         <Td className={styles.deltaAssessmentContainer} centered>
-          <div className={styles.deltaAssessment}>
-            {getDeltaIcon(employee.delta)}{" "}
-            {employee.employeeCurrentAssessment ?? "—"}
-          </div>
+          {employee.employeeCurrentAssessment ? (
+            <div className={styles.deltaAssessment}>
+              {getDeltaIcon(employee.delta)}{" "}
+              {employee.employeeCurrentAssessment ?? "—"}
+            </div>
+          ) : (
+            "—"
+          )}
         </Td>
         <Td>{`${employee.lastName ?? "-"} ${employee.firstName ?? "-"} ${employee.patronymic ?? "-"}`}</Td>
         <Td>{`${employee.subdivision.name ?? "-"}`}</Td>
