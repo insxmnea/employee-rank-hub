@@ -5,9 +5,20 @@ import { getEmployeeColor } from "./getEmployeeColor";
 export const subdivisionDataToFlowElements = (
   subdivisions: Subdivisions | undefined,
 ) => {
-  const nodes: Node[] = [];
-  const edges: Edge[] = [];
   const position = { x: 0, y: 0 };
+  const nodes: Node[] = [
+    {
+      id: "root",
+      type: "default",
+      data: { label: "Генеральный директор" },
+      position,
+      style: {
+        backgroundColor: "#e6f7ff",
+        border: "1px solid #ccc",
+      },
+    },
+  ];
+  const edges: Edge[] = [];
 
   if (!subdivisions) return { nodes, edges };
 
@@ -25,6 +36,16 @@ export const subdivisionDataToFlowElements = (
     };
 
     nodes.push(subdivisionNode);
+
+    const edge: Edge = {
+      id: `root-${subdivisionId}`,
+      source: "root",
+      target: subdivisionId,
+      type: "smoothstep",
+      animated: false,
+    };
+
+    edges.push(edge);
 
     subdivision.employees.forEach((employee) => {
       const employeeId = `employee-${employee.id}`;
