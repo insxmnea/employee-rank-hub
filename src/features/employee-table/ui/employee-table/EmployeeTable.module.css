@@ -8,9 +8,46 @@
   font-size: 24px;
 }
 
+.deltaAssessmentContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
 .deltaAssessment {
+  height: 100%;
+  width: 60px;
+  align-self: center;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
+}
+
+.table.table {
+  /* margin: 0; */
+}
+
+.wrapper {
+  margin: 0 auto;
+  width: 1060px;
+}
+
+.tableContainer {
+  width: 1060px;
+  overflow-y: auto;
+}
+
+.link {
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 38px;
+
+  &:hover {
+    color: var(--bg-secondary-color);
+    background-color: var(--secondary-color);
+  }
 }

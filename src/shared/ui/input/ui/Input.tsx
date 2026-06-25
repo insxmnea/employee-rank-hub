@@ -13,6 +13,7 @@ interface InputProps extends HTMLInputProps {
   placeholder?: string;
   autofocus?: boolean;
   error?: boolean;
+  width?: string;
   onChange?: (value: string) => void;
 }
 
@@ -25,6 +26,7 @@ export const Input = memo(
     placeholder,
     autofocus,
     error = false,
+    width,
     ...props
   }: InputProps) => {
     const ref = useRef<HTMLInputElement>(null);
@@ -40,7 +42,10 @@ export const Input = memo(
     };
 
     return (
-      <div className={classnames(styles.inputWrapper, {}, [className])}>
+      <div
+        className={classnames(styles.inputWrapper, {}, [className])}
+        style={{ width }}
+      >
         <span
           className={classnames(
             styles.placeholder,

@@ -35,13 +35,11 @@ export const Sidebar = () => {
           <i className="nf nf-fa-table"></i>
           <span className={styles.linkText}>{t("Сотрудники")}</span>
         </AppLink>
-        <AppLink to={RoutePath.employee_hierarchy} className={styles.link}>
+        <AppLink to={RoutePath.weights_settings} className={styles.link}>
           <i className="nf nf-oct-graph"></i>
-          <span className={styles.linkText}>{t("Иерархия сотрудников")}</span>
-        </AppLink>
-        <AppLink to={RoutePath.create_employee} className={styles.link}>
-          <i className="nf nf-fa-user_plus"></i>
-          <span className={styles.linkText}>{t("Добавить сотрудника")}</span>
+          <span className={styles.linkText}>
+            {t("Настройка весов критериев")}
+          </span>
         </AppLink>
         {/* <AppLink to={RoutePath.about} className={styles.link}>
           <i className="nf nf-md-information_outline"></i>

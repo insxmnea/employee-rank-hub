@@ -10,17 +10,20 @@ export const employeeQueries = {
     queryOptions({
       queryKey: [...employeeQueries.all(), "all"],
       queryFn: () => getEmployees(),
+      staleTime: 0,
     }),
 
   employee: (id: number) =>
     queryOptions({
       queryKey: [...employeeQueries.all(), "employee", id],
       queryFn: () => getEmployee(id),
+      staleTime: 0,
     }),
 
   employeesRank: () =>
     queryOptions({
       queryKey: [...employeeQueries.all(), "employeesRank"],
       queryFn: () => getEmployeesRank(),
+      staleTime: 0,
     }),
 };

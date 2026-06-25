@@ -52,7 +52,7 @@ export const TopEmployeeChart = () => {
         <tbody>{tableContent}</tbody>
       </Table>
 
-      <AppLink to={RoutePath.employee_hierarchy} className={styles.link}>
+      <AppLink to={RoutePath.employee_table} className={styles.link}>
         {t("Показать все")}
       </AppLink>
     </Card>

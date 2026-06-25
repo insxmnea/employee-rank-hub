@@ -4,7 +4,7 @@ import styles from "./Flex.module.css";
 interface FlexProps {
   direction?: "column";
   justify?: "space-between";
-  align?: "center";
+  align?: "center" | "flex-end";
   gap?: number;
   width?: string;
   children?: ReactNode;

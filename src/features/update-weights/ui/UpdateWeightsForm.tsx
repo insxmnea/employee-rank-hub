@@ -10,6 +10,7 @@ import { subdivisionQueries } from "@entities/subdivision";
 import { useUpdateWeights } from "../api/useUpdateWeights";
 import { weightQueries } from "@entities/weight";
 import { Controller, useForm } from "react-hook-form";
+import { classnames } from "@shared/lib/classnames";
 
 interface FormValues {
   information: number;
@@ -20,7 +21,11 @@ interface FormValues {
   respect: number;
 }
 
-export const UpdateWeightsForm = () => {
+interface UpdateWeightsFormProps {
+  className?: string;
+}
+
+export const UpdateWeightsForm = ({ className }: UpdateWeightsFormProps) => {
   const { t } = useTranslation("");
   const queryClient = useQueryClient();
 
@@ -81,7 +86,10 @@ export const UpdateWeightsForm = () => {
   const submitError = error?.message || (error && t("Ошибка обновления"));
 
   return (
-    <form className={styles.wrapper} onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className={classnames(styles.wrapper, {}, [className])}
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div className={styles.grid}>
         <Controller
           name="information"

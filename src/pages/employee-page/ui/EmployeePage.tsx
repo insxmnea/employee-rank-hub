@@ -85,7 +85,7 @@ const EmployeePage = () => {
         </div>
       </div>
       <Text size="l" centered className={styles["average-statistics-text"]}>
-        {t("Оценки по критериям за последние 6 месяцев")}
+        {`${t("Оценки по критериям за последние 6 месяцев")} (Количество оценок: ${data?.data.assessmentsCount})`}
       </Text>
 
       <AssessmentsChart id={employeeId} assessments={data?.data.assessment} />

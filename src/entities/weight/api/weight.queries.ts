@@ -8,5 +8,6 @@ export const weightQueries = {
     queryOptions({
       queryKey: [...weightQueries.all(), "all"],
       queryFn: () => getWeights(),
+      staleTime: 0,
     }),
 };

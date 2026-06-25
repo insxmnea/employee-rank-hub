@@ -67,8 +67,16 @@ export const SubdivisionsHierarchy = () => {
   );
 
   const onNodeClick = (event: React.MouseEvent, node: Node) => {
-    setIsSideModal(true);
-    setSelectedNodeId(node.id.split("-")[1]);
+    const nodeType = node.id.split("-")[0];
+
+    if (nodeType === "employee") {
+      setIsSideModal(true);
+      setSelectedNodeId(node.id.split("-")[1]);
+    }
+
+    if (nodeType === "subdivision") {
+      console.log("none");
+    }
   };
 
   const onCloseSideModal = () => {

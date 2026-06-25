@@ -7,6 +7,7 @@ import { LoginPage } from "@pages/login-page";
 import { MainPage } from "@pages/main-page";
 import { NotFoundPage } from "@pages/not-found-page";
 import { RankPage } from "@pages/rank-page";
+import { WeightsSettingsPage } from "@pages/weights-settings-page";
 import { MainLayout, PrivateLayout } from "@widgets/layouts";
 import { RouteObject } from "react-router";
 
@@ -16,6 +17,7 @@ export enum AppRoutes {
   CREATE_EMPLOYEE = "create_employee",
   EMPLOYEE_TABLE = "employee_table",
   EMPLOYEE_HIERARCHY = "employee_hierarchy",
+  WEIGHTS_SETTINGS = "weights_settings",
   EMPLOYEE = "employee",
   ABOUT = "about",
   NOT_FOUND = "not_found",
@@ -28,6 +30,7 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.CREATE_EMPLOYEE]: "/create_employee",
   [AppRoutes.EMPLOYEE_TABLE]: "/employee_table",
   [AppRoutes.EMPLOYEE_HIERARCHY]: "/employee_hierarchy",
+  [AppRoutes.WEIGHTS_SETTINGS]: "/weights_settings",
   [AppRoutes.EMPLOYEE]: "/employee",
   [AppRoutes.ABOUT]: "/about",
   [AppRoutes.LOGIN]: "/login",
@@ -61,6 +64,10 @@ export const routeConfig: RouteObject[] = [
       {
         path: RoutePath.employee_hierarchy,
         element: <EmployeeHierarchyPage />,
+      },
+      {
+        path: RoutePath.weights_settings,
+        element: <WeightsSettingsPage />,
       },
       {
         path: RoutePath.about,
