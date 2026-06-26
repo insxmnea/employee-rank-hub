@@ -44,6 +44,7 @@ export const SubdivisionsHierarchy = () => {
   const [selectedNodeId, setSelectedNodeId] = useState<string>();
 
   const [isSideSubdivisionModal, setIsSideSubdivisionModal] = useState(false);
+  const [selectedSubdivisionId, setSelectedSubdivisionId] = useState<string>();
 
   useEffect(() => {
     const { nodes: flowNodes, edges: flowEdges } =
@@ -80,7 +81,7 @@ export const SubdivisionsHierarchy = () => {
     if (nodeType === "subdivision") {
       console.log("none");
       setIsSideSubdivisionModal(true);
-      setSelectedNodeId(node.id.split("-")[1]);
+      setSelectedSubdivisionId(node.id.split("-")[1]);
     }
   };
 
@@ -167,7 +168,7 @@ export const SubdivisionsHierarchy = () => {
       />
 
       <SubdivisionDetailsModal
-        id={selectedNodeId ?? ""}
+        id={selectedSubdivisionId ?? ""}
         isOpen={isSideSubdivisionModal}
         onClose={() => setIsSideSubdivisionModal(false)}
       />
