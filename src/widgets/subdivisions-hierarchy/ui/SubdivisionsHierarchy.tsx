@@ -22,6 +22,7 @@ import { getLayoutedElements } from "@shared/lib";
 import { EmployeeDetailsModal } from "@features/employee-details";
 import styles from "./SubdivisionsHierarchy.module.css";
 import { Text } from "@shared/ui/text";
+import { SubdivisionDetailsModal } from "@features/subdivision-details";
 
 const fitViewOptions: FitViewOptions = {
   padding: 0.2,
@@ -41,6 +42,8 @@ export const SubdivisionsHierarchy = () => {
 
   const [isSideModal, setIsSideModal] = useState(false);
   const [selectedNodeId, setSelectedNodeId] = useState<string>();
+
+  const [isSideSubdivisionModal, setIsSideSubdivisionModal] = useState(false);
 
   useEffect(() => {
     const { nodes: flowNodes, edges: flowEdges } =
@@ -76,6 +79,8 @@ export const SubdivisionsHierarchy = () => {
 
     if (nodeType === "subdivision") {
       console.log("none");
+      setIsSideSubdivisionModal(true);
+      setSelectedNodeId(node.id.split("-")[1]);
     }
   };
 
@@ -159,6 +164,12 @@ export const SubdivisionsHierarchy = () => {
         id={selectedNodeId ?? ""}
         isOpen={isSideModal}
         onClose={onCloseSideModal}
+      />
+
+      <SubdivisionDetailsModal
+        id={selectedNodeId ?? ""}
+        isOpen={isSideSubdivisionModal}
+        onClose={() => setIsSideSubdivisionModal(false)}
       />
     </div>
   );

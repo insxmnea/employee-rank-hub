@@ -49,7 +49,7 @@ export const CreateSubdivisionForm = () => {
         <Select
           value={String(subdivisionId)}
           options={[{ value: 999, label: "" }, ...subdivisionsOptions]}
-          placeholder="Главное подразделение"
+          placeholder="Управляющее подразделение"
           onChange={(value) => setSubdivisionId(+value)}
           disabled={isSubdivisionsLoading}
         />
@@ -61,7 +61,7 @@ export const CreateSubdivisionForm = () => {
         theme={ButtonTheme.OUTLINE}
         type="submit"
       >
-        {t("Создать подразделение")}
+        {t("Создать")}
       </Button>
     </form>
   );

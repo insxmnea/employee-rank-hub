@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import styles from "./SubdivisionPage.module.css";
+import styles from "./SubdivisionDetails.module.css";
 import { useQuery } from "@tanstack/react-query";
 import { employeeQueries } from "@entities/employee";
 import { Loader } from "@shared/ui/Loader";
@@ -8,12 +8,11 @@ import { Text } from "@shared/ui/text";
 import { useTranslation } from "react-i18next";
 import { AssessmentsChart } from "@widgets/assessments-chart";
 import { EmployeeScoreChart } from "@widgets/employee-score-chart";
-import { SubdivisionScoreChartDataAdapter } from "../adapters";
+import { subdivisionScoreChartDataAdapter } from "../../adapters";
 import { ProgressBar } from "@shared/ui/progress-bar";
 import { DeltaIcon } from "@shared/ui/delta-icon";
 import { Flex } from "@shared/ui/flex";
 import { Subdivision, subdivisionQueries } from "@entities/subdivision";
-import { SubdivisionEmployeesTable } from "./SubdivisionEmployeesTable";
 import { Grid } from "@shared/ui/grid";
 import { AppLink } from "@shared/ui/AppLink";
 import { RoutePath } from "@shared/config/routeConfig";
@@ -31,15 +30,19 @@ const getAvgSubdivisionTopsisScore = (subdivision?: Subdivision) => {
   );
 };
 
-const SubdivisionPage = () => {
+export interface EmployeeDetailsProps {
+  id: string;
+}
+
+const SubdivisionDetails = ({ id }: EmployeeDetailsProps) => {
   const { t } = useTranslation("subdivision-page");
   const { subdivisionId } = useParams();
 
   const { data, isLoading } = useQuery(
-    subdivisionQueries.subdivision(Number(subdivisionId)),
+    subdivisionQueries.subdivision(Number(id)),
   );
 
-  if (!subdivisionId) return null;
+  if (!id) return null;
 
   const avgTopsis = getAvgSubdivisionTopsisScore(data?.data);
 
@@ -53,14 +56,14 @@ const SubdivisionPage = () => {
   return (
     <div className={styles.wrapper}>
       <Text size="xl">{`${data?.data.name}`}</Text>
-      <Grid mt={12} gridTemplateColumns="2fr 3fr" gap={48}>
+      <Grid mt={12} gridTemplateColumns="1fr" gap={48}>
         <Flex direction="column">
           <EmployeeScoreChart
-            data={SubdivisionScoreChartDataAdapter(data?.data)}
+            data={subdivisionScoreChartDataAdapter(data?.data)}
             className={styles.radar_chart}
           />
 
-          <div className={styles.result_score}>
+          <Flex direction="column" gap={12}>
             <div>
               <Text>{`${t("Средний TOPSIS")}: ${avgTopsis ? avgTopsis.toFixed(2) : "Недостаточно данных"}`}</Text>
 
@@ -83,33 +86,24 @@ const SubdivisionPage = () => {
               )}
             </div>
 
-            {data?.data.idTopSubdivision && (
-              <AppLink
-                to={`${RoutePath.subdivision}/${data?.data.idTopSubdivision}`}
-                className={styles.link}
-              >
-                <i className="nf nf-fa-clipboard_user"></i>
-                <Text>
-                  {t("Перейти на страницу управляющего подразделения")}
-                </Text>
-              </AppLink>
-            )}
-          </div>
+            <AppLink
+              to={`${RoutePath.subdivision}/${id}`}
+              className={styles.link}
+            >
+              <i className="nf nf-fa-clipboard_user"></i>
+              <Text>{t("Перейти на страницу подразделения")}</Text>
+            </AppLink>
+          </Flex>
         </Flex>
-
-        <SubdivisionEmployeesTable subdivisionId={subdivisionId} />
       </Grid>
 
-      <Text size="l" centered className={styles["average-statistics-text"]}>
+      {/* <Text size="l" centered className={styles["average-statistics-text"]}>
         {`${t("Оценки по критериям за последние 6 месяцев")} (Количество оценок: ${data?.data.assessmentsCount})`}
       </Text>
 
-      <AssessmentsChart
-        id={subdivisionId}
-        assessments={data?.data.assessment}
-      />
+      <AssessmentsChart id={id} assessments={data?.data.assessment} /> */}
     </div>
   );
 };
 
-export default SubdivisionPage;
+export default SubdivisionDetails;
