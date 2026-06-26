@@ -1,5 +1,6 @@
 import { AboutPage } from "@pages/about-page";
 import { CreateEmployeePage } from "@pages/create-employee-page";
+import { CreateSubdivisionPage } from "@pages/create-subdivision-page";
 import { EmployeeHierarchyPage } from "@pages/employee-hierarchy-page";
 import { EmployeePage } from "@pages/employee-page";
 import { EmployeeTablePage } from "@pages/employee-table-page";
@@ -22,6 +23,7 @@ export enum AppRoutes {
   WEIGHTS_SETTINGS = "weights_settings",
   SUBDIVISION_TABLE = "subdivision_table",
   SUBDIVISION = "subdivision",
+  CREATE_SUBDIVISION = "create_subdivision",
   EMPLOYEE = "employee",
   ABOUT = "about",
   NOT_FOUND = "not_found",
@@ -37,6 +39,7 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.WEIGHTS_SETTINGS]: "/weights_settings",
   [AppRoutes.SUBDIVISION_TABLE]: "/subdivision_table",
   [AppRoutes.SUBDIVISION]: "/subdivision",
+  [AppRoutes.CREATE_SUBDIVISION]: "/create_subdivision",
   [AppRoutes.EMPLOYEE]: "/employee",
   [AppRoutes.ABOUT]: "/about",
   [AppRoutes.LOGIN]: "/login",
@@ -74,6 +77,10 @@ export const routeConfig: RouteObject[] = [
       {
         path: `${RoutePath.subdivision}/:subdivisionId`,
         element: <SubdivisionPage />,
+      },
+      {
+        path: RoutePath.create_subdivision,
+        element: <CreateSubdivisionPage />,
       },
       {
         path: RoutePath.employee_hierarchy,

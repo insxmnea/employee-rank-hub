@@ -37,13 +37,25 @@ export const subdivisionDataToFlowElements = (
 
     nodes.push(subdivisionNode);
 
-    const edge: Edge = {
+    let edge: Edge = {
       id: `root-${subdivisionId}`,
       source: "root",
       target: subdivisionId,
       type: "smoothstep",
       animated: false,
     };
+
+    if (subdivision.idTopSubdivision) {
+      const topSubdivisionId = `subdivision-${subdivision.idTopSubdivision}`;
+
+      edge = {
+        id: `${topSubdivisionId}-${subdivisionId}`,
+        source: topSubdivisionId,
+        target: subdivisionId,
+        type: "smoothstep",
+        animated: false,
+      };
+    }
 
     edges.push(edge);
 

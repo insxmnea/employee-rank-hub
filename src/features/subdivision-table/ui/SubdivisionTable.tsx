@@ -62,9 +62,7 @@ export const SubdivisionTable = () => {
       <Tr key={subdivision.id} onClick={() => handleRowClick(subdivision.id)}>
         <Td centered>{index + 1}</Td>
         <Td centered>
-          {subdivision.avgTopsis
-            ? subdivision.avgTopsis.toFixed(2)
-            : "Недостаточно данных"}
+          {subdivision.avgTopsis ? subdivision.avgTopsis.toFixed(2) : "—"}
         </Td>
         <Td className={styles.deltaAssessmentContainer} centered>
           {subdivision.subdivisionCurrentAssessment ? (
@@ -76,8 +74,8 @@ export const SubdivisionTable = () => {
             "—"
           )}
         </Td>
-        <Td>{`${subdivision.name ?? "-"}`}</Td>
-        <Td centered>{`${subdivision.employeeCount ?? "-"}`}</Td>
+        <Td>{`${subdivision.name ?? "—"}`}</Td>
+        <Td centered>{`${subdivision.employeeCount ?? "—"}`}</Td>
         <Td centered>
           <AppLink
             to={`${RoutePath.subdivision}/${subdivision.id}`}
@@ -102,7 +100,7 @@ export const SubdivisionTable = () => {
           />
         </Flex>
 
-        <AppLink to={`${RoutePath.create_employee}`} className={styles.link}>
+        <AppLink to={`${RoutePath.create_subdivision}`} className={styles.link}>
           <i className="nf nf-md-tab_plus"></i>
           <Text>{t("Добавить подразделение")}</Text>
         </AppLink>
