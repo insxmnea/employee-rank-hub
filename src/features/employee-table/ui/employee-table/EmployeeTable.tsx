@@ -146,6 +146,9 @@ export const EmployeeTable = ({ subdivisionView }: EmployeeTableProps) => {
       <Tr key={employee.id} onClick={() => handleRowClick(employee.id)}>
         <Td centered>{index + 1}</Td>
         <Td
+          title={
+            employee.topsisScore > 0 ? `${employee.topsisScore}` : undefined
+          }
           centered
         >{`${Number(employee.topsisScore?.toFixed(2)) > 0 ? employee.topsisScore?.toFixed(2) : "—"}`}</Td>
         <Td className={styles.deltaAssessmentContainer} centered>

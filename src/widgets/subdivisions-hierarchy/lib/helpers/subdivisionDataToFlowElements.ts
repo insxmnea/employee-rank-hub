@@ -45,7 +45,7 @@ export const subdivisionDataToFlowElements = (
       animated: false,
     };
 
-    if (subdivision.idTopSubdivision) {
+    if (subdivision.idTopSubdivision && +subdivision.idTopSubdivision !== 999) {
       const topSubdivisionId = `subdivision-${subdivision.idTopSubdivision}`;
 
       edge = {

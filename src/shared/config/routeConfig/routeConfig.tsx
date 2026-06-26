@@ -10,6 +10,7 @@ import { NotFoundPage } from "@pages/not-found-page";
 import { RankPage } from "@pages/rank-page";
 import { SubdivisionPage } from "@pages/subdivision-page";
 import { SubdivisionTablePage } from "@pages/subdivision-table-page";
+import { UpdateSubdivisionPage } from "@pages/update-subdivision-page";
 import { WeightsSettingsPage } from "@pages/weights-settings-page";
 import { MainLayout, PrivateLayout } from "@widgets/layouts";
 import { RouteObject } from "react-router";
@@ -24,6 +25,7 @@ export enum AppRoutes {
   SUBDIVISION_TABLE = "subdivision_table",
   SUBDIVISION = "subdivision",
   CREATE_SUBDIVISION = "create_subdivision",
+  UPDATE_SUBDIVISION = "update_subdivision",
   EMPLOYEE = "employee",
   ABOUT = "about",
   NOT_FOUND = "not_found",
@@ -40,6 +42,7 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.SUBDIVISION_TABLE]: "/subdivision_table",
   [AppRoutes.SUBDIVISION]: "/subdivision",
   [AppRoutes.CREATE_SUBDIVISION]: "/create_subdivision",
+  [AppRoutes.UPDATE_SUBDIVISION]: "/update_subdivision",
   [AppRoutes.EMPLOYEE]: "/employee",
   [AppRoutes.ABOUT]: "/about",
   [AppRoutes.LOGIN]: "/login",
@@ -81,6 +84,10 @@ export const routeConfig: RouteObject[] = [
       {
         path: RoutePath.create_subdivision,
         element: <CreateSubdivisionPage />,
+      },
+      {
+        path: `${RoutePath.update_subdivision}/:subdivisionId`,
+        element: <UpdateSubdivisionPage />,
       },
       {
         path: RoutePath.employee_hierarchy,

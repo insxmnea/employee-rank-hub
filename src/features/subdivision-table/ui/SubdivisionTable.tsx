@@ -3,16 +3,19 @@ import styles from "./SubdivisionTable.module.css";
 import { Loader } from "@shared/ui/Loader";
 import { useTranslation } from "react-i18next";
 import { Table, Td, Th, Thead, Tr } from "@shared/ui/table";
-import { useMemo, useState } from "react";
+import { MouseEvent, Suspense, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 import { RoutePath } from "@shared/config/routeConfig";
 import { Input } from "@shared/ui/input";
-import { subdivisionQueries } from "@entities/subdivision";
+import { Subdivision, subdivisionQueries } from "@entities/subdivision";
 import { Flex } from "@shared/ui/flex";
 import { useDebounce } from "@shared/lib/hooks/useDebounce";
 import { AppLink } from "@shared/ui/AppLink";
 import { Text } from "@shared/ui/text";
 import { subdivisionTableDataAdapter } from "../adapters";
+import { Button } from "@shared/ui/Button";
+import { Modal } from "@shared/ui/Modal";
+import { useDeleteSubdivision } from "@features/delete-subdivision";
 
 const getDeltaIcon = (delta: "up" | "down") => {
   return delta === "up" ? (
@@ -33,6 +36,12 @@ export const SubdivisionTable = () => {
 
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search, 300);
+  const [activeDeleteEmployee, setActiveDeleteEmployee] =
+    useState<Subdivision>();
+
+  const [isDeleteModal, setIsDeleteModal] = useState(false);
+
+  const { mutate, error, isPending } = useDeleteSubdivision();
 
   const filteredContent = useMemo(() => {
     if (!data?.data) return [];
@@ -55,6 +64,20 @@ export const SubdivisionTable = () => {
     navigate(`${RoutePath.subdivision}/${id}`);
     // setIsSideModal(true);
     // setEmployeeId(id);
+  };
+
+  const onClickDeleteButton = (e: MouseEvent, subdivision: Subdivision) => {
+    e.stopPropagation();
+    setIsDeleteModal(true);
+    setActiveDeleteEmployee(subdivision);
+  };
+
+  const handleClickRemoveEmployee = async () => {
+    if (activeDeleteEmployee) {
+      await mutate(activeDeleteEmployee.id);
+      setIsDeleteModal(false);
+      navigate(`${RoutePath.subdivision_table}`);
+    }
   };
 
   const tableContent = filteredContent?.map((subdivision, index) => {
@@ -83,6 +106,25 @@ export const SubdivisionTable = () => {
           >
             <i className="nf nf-fa-external_link"></i>
           </AppLink>
+        </Td>
+        <Td centered>
+          <Button
+            className={styles.trashButton}
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`${RoutePath.update_subdivision}/${subdivision.id}`);
+            }}
+          >
+            <i className="nf nf-fa-edit"></i>
+          </Button>
+        </Td>
+        <Td centered>
+          <Button
+            className={styles.trashButton}
+            onClick={(e) => onClickDeleteButton(e, subdivision)}
+          >
+            <i className="nf nf-fa-trash_can"></i>
+          </Button>
         </Td>
       </Tr>
     );
@@ -115,10 +157,39 @@ export const SubdivisionTable = () => {
             <Th width="100%">{t("Название")}</Th>
             <Th width="100%">{t("Сотрудники")}</Th>
             <Th width="100px">{t("Ссылка")}</Th>
+            <Th width="100px">{t("Изменить")}</Th>
+            <Th width="100px">{t("Удаление")}</Th>
           </Thead>
           <tbody>{tableContent}</tbody>
         </Table>
       </div>
+
+      <Modal
+        isOpen={isDeleteModal}
+        onClose={() => setIsDeleteModal(false)}
+        className={styles.deleteModal}
+      >
+        <Suspense fallback={<Loader />}>
+          <Flex direction="column" gap={24}>
+            <Text
+              bold
+              size="l"
+            >{`${t("Вы уверены, что хотите удалить подразделение")} "${activeDeleteEmployee?.name}"?`}</Text>
+
+            <Flex width="100%" justify="space-between">
+              <Button
+                className={styles.removeButton}
+                onClick={handleClickRemoveEmployee}
+              >
+                {t("Удалить")}
+              </Button>
+              <Button onClick={() => setIsDeleteModal(false)}>
+                {t("Отмена")}
+              </Button>
+            </Flex>
+          </Flex>
+        </Suspense>
+      </Modal>
     </div>
   );
 };

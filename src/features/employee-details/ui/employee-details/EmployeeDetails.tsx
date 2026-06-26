@@ -38,10 +38,14 @@ const EmployeeDetails = ({ id }: EmployeeDetailsProps) => {
     <div className={styles.wrapper}>
       <Text size="xl">{`${data?.data.lastName} ${data?.data.firstName} ${data?.data.patronymic}`}</Text>
       <div className={styles.employee_info}>
-        {!data?.data.avatarImage && (
+        {!data?.data.avatarImage ? (
           <div className={styles.avatar}>
             <i className="nf nf-fa-circle_user"></i>
           </div>
+        ) : (
+          <img
+            src={`http://localhost:5000/image/avatars/${data?.data.avatarImage}`}
+          ></img>
         )}
         <div>
           <Text>{`${t("Gender")}: ${getGender(data?.data.gender)}`}</Text>

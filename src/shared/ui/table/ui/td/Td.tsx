@@ -8,6 +8,7 @@ interface TdProps {
   right?: boolean;
   children: React.ReactNode;
   width?: string;
+  title?: string;
 }
 
 export const Td = ({
@@ -16,6 +17,7 @@ export const Td = ({
   centered = false,
   right = false,
   width,
+  title,
 }: TdProps) => {
   return (
     <td
@@ -28,6 +30,7 @@ export const Td = ({
         [className],
       )}
       style={{ width }}
+      title={title}
     >
       {children}
     </td>
