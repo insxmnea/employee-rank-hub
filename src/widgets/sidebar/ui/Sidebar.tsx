@@ -35,6 +35,10 @@ export const Sidebar = () => {
           <i className="nf nf-fa-users"></i>
           <span className={styles.linkText}>{t("Сотрудники")}</span>
         </AppLink>
+        <AppLink to={RoutePath.subdivision_table} className={styles.link}>
+          <i className="nf nf-cod-symbol_structure"></i>
+          <span className={styles.linkText}>{t("Подразделения")}</span>
+        </AppLink>
         <AppLink to={RoutePath.weights_settings} className={styles.link}>
           <i className="nf nf-seti-settings"></i>
           <span className={styles.linkText}>

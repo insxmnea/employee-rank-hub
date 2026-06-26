@@ -1,3 +1,4 @@
+import { Assessment } from "@entities/assessment";
 import { Employee } from "@entities/employee";
 
 export interface Subdivision {
@@ -5,7 +6,7 @@ export interface Subdivision {
   name: string;
   idTopSubdivision: string;
   subdivisionCurrentAssessment: string;
-  delta: string;
+  delta: "up" | "down";
   assessmentsCount: number;
   lastAssessment: number;
   employeeCount: number;
@@ -15,7 +16,7 @@ export interface Subdivision {
   averageResultWork: number;
   averageTeamWork: number;
   averageRespect: number;
-  assessment: string[];
+  assessment: Assessment[];
   employees: Omit<Employee, "subdivision">[];
 }
 

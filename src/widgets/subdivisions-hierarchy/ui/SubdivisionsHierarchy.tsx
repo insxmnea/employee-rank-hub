@@ -121,19 +121,19 @@ export const SubdivisionsHierarchy = () => {
               <Text>{t("Сотрудники")}</Text>
               <div className={styles["legend-row"]}>
                 <div className={styles["high-rating"]}></div>
-                <Text>- {t("Высокие показатели")}</Text>
+                <Text>- {t("Высокий рейтинг")}</Text>
               </div>
               <div className={styles["legend-row"]}>
                 <div className={styles["middle-rating"]}></div>
-                <Text>- {t("Средние показатели")}</Text>
+                <Text>- {t("Средний рейтинг")}</Text>
               </div>
               <div className={styles["legend-row"]}>
                 <div className={styles["low-rating"]}></div>
-                <Text>- {t("Низкие показатели")}</Text>
+                <Text>- {t("Низкий рейтинг")}</Text>
               </div>
               <div className={styles["legend-row"]}>
                 <div className={styles["no-rating"]}></div>
-                <Text>- {t("Без оценки")}</Text>
+                <Text>- {t("Без рейтинга")}</Text>
               </div>
             </div>
           </div>

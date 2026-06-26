@@ -57,9 +57,9 @@ const EmployeeDetails = ({ id }: EmployeeDetailsProps) => {
       </div>
 
       <div>
-        <Text>{`${t("Рейтинг TOPSIS")}: ${data?.data.topsisScore?.toFixed(2) ?? "Недостаточно данных"}`}</Text>
+        <Text>{`${t("Рейтинг TOPSIS")}: ${data?.data.topsisScore ? data?.data.topsisScore?.toFixed(2) : "Недостаточно данных"}`}</Text>
 
-        {data?.data.topsisScore && (
+        {!!data?.data.topsisScore && (
           <ProgressBar
             maxValue={1}
             value={+data?.data.topsisScore?.toFixed(2)}

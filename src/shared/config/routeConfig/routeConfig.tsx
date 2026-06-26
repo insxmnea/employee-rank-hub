@@ -7,6 +7,8 @@ import { LoginPage } from "@pages/login-page";
 import { MainPage } from "@pages/main-page";
 import { NotFoundPage } from "@pages/not-found-page";
 import { RankPage } from "@pages/rank-page";
+import { SubdivisionPage } from "@pages/subdivision-page";
+import { SubdivisionTablePage } from "@pages/subdivision-table-page";
 import { WeightsSettingsPage } from "@pages/weights-settings-page";
 import { MainLayout, PrivateLayout } from "@widgets/layouts";
 import { RouteObject } from "react-router";
@@ -18,6 +20,8 @@ export enum AppRoutes {
   EMPLOYEE_TABLE = "employee_table",
   EMPLOYEE_HIERARCHY = "employee_hierarchy",
   WEIGHTS_SETTINGS = "weights_settings",
+  SUBDIVISION_TABLE = "subdivision_table",
+  SUBDIVISION = "subdivision",
   EMPLOYEE = "employee",
   ABOUT = "about",
   NOT_FOUND = "not_found",
@@ -31,6 +35,8 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.EMPLOYEE_TABLE]: "/employee_table",
   [AppRoutes.EMPLOYEE_HIERARCHY]: "/employee_hierarchy",
   [AppRoutes.WEIGHTS_SETTINGS]: "/weights_settings",
+  [AppRoutes.SUBDIVISION_TABLE]: "/subdivision_table",
+  [AppRoutes.SUBDIVISION]: "/subdivision",
   [AppRoutes.EMPLOYEE]: "/employee",
   [AppRoutes.ABOUT]: "/about",
   [AppRoutes.LOGIN]: "/login",
@@ -60,6 +66,14 @@ export const routeConfig: RouteObject[] = [
       {
         path: RoutePath.employee_table,
         element: <EmployeeTablePage />,
+      },
+      {
+        path: RoutePath.subdivision_table,
+        element: <SubdivisionTablePage />,
+      },
+      {
+        path: `${RoutePath.subdivision}/:subdivisionId`,
+        element: <SubdivisionPage />,
       },
       {
         path: RoutePath.employee_hierarchy,

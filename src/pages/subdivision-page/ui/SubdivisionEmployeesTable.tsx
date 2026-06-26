@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import styles from "./EmployeeTable.module.css";
+import styles from "./SubdivisionPage.module.css";
 import { Employee, employeeQueries } from "@entities/employee";
 import { Loader } from "@shared/ui/Loader";
 import { useTranslation } from "react-i18next";
@@ -39,11 +39,13 @@ const getDeltaIcon = (delta: "up" | "down") => {
   );
 };
 
-interface EmployeeTableProps {
-  subdivisionView?: boolean;
+interface SubdivisionEmployeesTableProps {
+  subdivisionId: string;
 }
 
-export const EmployeeTable = ({ subdivisionView }: EmployeeTableProps) => {
+export const SubdivisionEmployeesTable = ({
+  subdivisionId,
+}: SubdivisionEmployeesTableProps) => {
   const { t } = useTranslation();
   const { data, refetch, isLoading } = useQuery(
     employeeQueries.employeesRank(),
@@ -56,8 +58,6 @@ export const EmployeeTable = ({ subdivisionView }: EmployeeTableProps) => {
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search, 300);
   const [activeDeleteEmployee, setActiveDeleteEmployee] = useState<Employee>();
-
-  const [subdivisionId, setSubdivisionId] = useState<number>(999);
 
   const { data: subdivisions, isLoading: isSubdivisionsLoading } = useQuery(
     subdivisionQueries.allSubdivisions(),
@@ -86,8 +86,7 @@ export const EmployeeTable = ({ subdivisionView }: EmployeeTableProps) => {
       .filter((employee) => {
         // Сначала проверяем наличие topsisScore
         // if (!employee.topsisScore) return false;
-        if (subdivisionId !== 999 && employee.subdivisionId !== subdivisionId)
-          return false;
+        if (employee.subdivisionId !== +subdivisionId) return false;
 
         const fullName = [
           employee.firstName || "",
@@ -108,9 +107,9 @@ export const EmployeeTable = ({ subdivisionView }: EmployeeTableProps) => {
   if (isLoading) return <Loader centered />;
 
   const handleRowClick = (id: string) => {
-    navigate(`${RoutePath.employee}/${id}`);
-    // setIsSideModal(true);
-    // setEmployeeId(id);
+    // navigate(`${RoutePath.employee}/${id}`);
+    setIsSideModal(true);
+    setEmployeeId(id);
   };
 
   const onCloseSideModal = () => {
@@ -150,79 +149,41 @@ export const EmployeeTable = ({ subdivisionView }: EmployeeTableProps) => {
         >{`${Number(employee.topsisScore?.toFixed(2)) > 0 ? employee.topsisScore?.toFixed(2) : "—"}`}</Td>
         <Td className={styles.deltaAssessmentContainer} centered>
           {employee.employeeCurrentAssessment ? (
-            <div className={styles.deltaAssessment}>
+            <Flex align="center" justify="space-between" gap={8} width="100%">
               {getDeltaIcon(employee.delta)}{" "}
               {employee.employeeCurrentAssessment ?? "—"}
-            </div>
+            </Flex>
           ) : (
             "—"
           )}
         </Td>
         <Td>{`${employee.lastName ?? "-"} ${employee.firstName ?? "-"} ${employee.patronymic ?? "-"}`}</Td>
-        <Td>{`${employee.subdivision.name ?? "-"}`}</Td>
         <Td>{`${employee.profession ?? "-"}`}</Td>
         <Td>{`${employee.role ?? "-"}`}</Td>
-        <Td centered>
-          <AppLink
-            to={`${RoutePath.employee}/${employee.id}`}
-            className={styles.linkButton}
-          >
-            <i className="nf nf-fa-external_link"></i>
-          </AppLink>
-        </Td>
-        <Td centered>
-          <Button
-            className={styles.trashButton}
-            onClick={(e) => onClickDeleteButton(e, employee)}
-          >
-            <i className="nf nf-fa-trash_can"></i>
-          </Button>
-        </Td>
       </Tr>
     );
   });
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.tableWrapper}>
       <Flex mb={12} width="100%" justify="space-between" align="flex-end">
-        <Flex gap={8}>
-          <Input
-            width={"350px"}
-            placeholder="Имя сотрудника"
-            value={search}
-            onChange={(value) => setSearch(value)}
-          />
-
-          <Select
-            value={String(subdivisionId)}
-            options={[
-              { value: 999, label: "Все подразделения" },
-              ...subdivisionsOptions,
-            ]}
-            placeholder="Подразделение"
-            onChange={(value) => setSubdivisionId(+value)}
-            disabled={isSubdivisionsLoading}
-          />
-        </Flex>
-
-        <AppLink to={`${RoutePath.create_employee}`} className={styles.link}>
-          <i className="nf nf-fa-user_plus"></i>
-          <Text>{t("Добавить сотрудника")}</Text>
-        </AppLink>
+        <Input
+          width={"350px"}
+          placeholder="Поиск сотрудника по имени"
+          value={search}
+          onChange={(value) => setSearch(value)}
+        />
       </Flex>
 
       <div className={styles.tableContainer}>
         <Table className={styles.table}>
           <Thead>
-            <Th width="34px">{t("№")}</Th>
-            <Th width="150px">{t("Рейтинг TOPSIS")}</Th>
+            <Th width="30px">{t("№")}</Th>
+            <Th width="150px">{t("TOPSIS")}</Th>
             <Th width="85px">{t("Балл")}</Th>
-            <Th width="290px">{t("ФИО сотрудника")}</Th>
-            <Th width="170px">{t("Отдел")}</Th>
+            <Th width="100%">{t("ФИО")}</Th>
             <Th width="160px">{t("Должность")}</Th>
-            <Th width="200px">{t("Уровень квалификации")}</Th>
-            <Th width="100px">{t("Профиль")}</Th>
-            <Th width="100px">{t("Удаление")}</Th>
+            <Th width="200px">{t("Грейд")}</Th>
           </Thead>
           <tbody>{tableContent}</tbody>
         </Table>

@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
-import styles from "./Flex.module.css";
+import styles from "./Grid.module.css";
 
-interface FlexProps {
+interface GridProps {
   direction?: "column";
   justify?: "space-between";
   align?: "center" | "flex-end";
@@ -10,9 +10,11 @@ interface FlexProps {
   children?: ReactNode;
   mb?: number;
   mt?: number;
+  gridTemplateColumns?: string;
 }
 
-export const Flex = ({
+export const Grid = ({
+  gridTemplateColumns,
   width,
   direction,
   justify,
@@ -21,10 +23,10 @@ export const Flex = ({
   mb,
   mt,
   children,
-}: FlexProps) => {
+}: GridProps) => {
   return (
     <div
-      className={styles.flex}
+      className={styles.Grid}
       style={{
         flexDirection: direction,
         justifyContent: justify,
@@ -33,6 +35,7 @@ export const Flex = ({
         width,
         marginBottom: `${mb}px`,
         marginTop: `${mt}px`,
+        gridTemplateColumns,
       }}
     >
       {children}
