@@ -12,6 +12,8 @@ import { EmployeeScoreChartDataAdapter } from "../adapters";
 import { ProgressBar } from "@shared/ui/progress-bar";
 import { DeltaIcon } from "@shared/ui/delta-icon";
 import { Flex } from "@shared/ui/flex";
+import { AppLink } from "@shared/ui/AppLink";
+import { RoutePath } from "@shared/config/routeConfig";
 
 const getGender = (gender?: string) => {
   if (!gender) return "-";
@@ -50,6 +52,14 @@ const EmployeePage = () => {
           <Text>{`${t("Дата рождения")}: ${data?.data.birthday}`}</Text>
           <Text>{`${t("Должность")}: ${data?.data.profession}`}</Text>
           <Text>{`${t("Позиция")}: ${data?.data.role}`}</Text>
+          <Text>{`${t("Подразделение")}: ${data?.data.subdivision.name}`}</Text>
+          <AppLink
+            to={`${RoutePath.subdivision}/${data?.data.subdivisionId}`}
+            className={styles.link}
+          >
+            <i className="nf nf-fa-clipboard_user"></i>
+            <Text>{t("Перейти в подразделение")}</Text>
+          </AppLink>
         </div>
 
         <EmployeeScoreChart

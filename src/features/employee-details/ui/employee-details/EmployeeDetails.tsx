@@ -48,6 +48,7 @@ const EmployeeDetails = ({ id }: EmployeeDetailsProps) => {
           <Text>{`${t("Birthday")}: ${data?.data.birthday}`}</Text>
           <Text>{`${t("Profession")}: ${data?.data.profession}`}</Text>
           <Text>{`${t("Grade")}: ${data?.data.role}`}</Text>
+          <Text>{`${t("Подразделение")}: ${data?.data.subdivision.name}`}</Text>
 
           <AppLink to={`${RoutePath.employee}/${id}`} className={styles.link}>
             <i className="nf nf-fa-clipboard_user"></i>
