@@ -70,13 +70,13 @@ export const UpdateSubdivisionForm = () => {
   );
 
   useEffect(() => {
-    if (subdivision?.data && subdivisions?.data) {
+    if (subdivision?.data) {
       reset({
         name: subdivision.data.name,
         subdivisionsOptions: subdivision.data.idTopSubdivision,
       });
     }
-  }, [subdivision, subdivisions, reset]);
+  }, [subdivision, reset]);
 
   return (
     <form className={styles.wrapper} onSubmit={handleSubmit(onSubmit)}>
@@ -142,7 +142,7 @@ export const UpdateSubdivisionForm = () => {
         theme={ButtonTheme.OUTLINE}
         type="submit"
       >
-        {t("Создать")}
+        {t("Сохранить")}
       </Button>
     </form>
   );

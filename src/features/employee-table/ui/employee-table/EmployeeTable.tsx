@@ -176,6 +176,17 @@ export const EmployeeTable = ({ subdivisionView }: EmployeeTableProps) => {
         <Td centered>
           <Button
             className={styles.trashButton}
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`${RoutePath.update_employee}/${employee.id}`);
+            }}
+          >
+            <i className="nf nf-fa-edit"></i>
+          </Button>
+        </Td>
+        <Td centered>
+          <Button
+            className={styles.trashButton}
             onClick={(e) => onClickDeleteButton(e, employee)}
           >
             <i className="nf nf-fa-trash_can"></i>
@@ -225,6 +236,7 @@ export const EmployeeTable = ({ subdivisionView }: EmployeeTableProps) => {
             <Th width="160px">{t("Должность")}</Th>
             <Th width="200px">{t("Уровень квалификации")}</Th>
             <Th width="100px">{t("Профиль")}</Th>
+            <Th width="100px">{t("Изменить")}</Th>
             <Th width="100px">{t("Удаление")}</Th>
           </Thead>
           <tbody>{tableContent}</tbody>

@@ -1,0 +1,17 @@
+.wrapper {
+  max-width: 1060px;
+  margin: 0 auto;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.submit_btn {
+  margin-top: 12px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}

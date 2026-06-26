@@ -10,6 +10,7 @@ import { NotFoundPage } from "@pages/not-found-page";
 import { RankPage } from "@pages/rank-page";
 import { SubdivisionPage } from "@pages/subdivision-page";
 import { SubdivisionTablePage } from "@pages/subdivision-table-page";
+import { UpdateEmployeePage } from "@pages/update-employee-page";
 import { UpdateSubdivisionPage } from "@pages/update-subdivision-page";
 import { WeightsSettingsPage } from "@pages/weights-settings-page";
 import { MainLayout, PrivateLayout } from "@widgets/layouts";
@@ -21,6 +22,7 @@ export enum AppRoutes {
   CREATE_EMPLOYEE = "create_employee",
   EMPLOYEE_TABLE = "employee_table",
   EMPLOYEE_HIERARCHY = "employee_hierarchy",
+  UPDATE_EMPLOYEE = "update_employee",
   WEIGHTS_SETTINGS = "weights_settings",
   SUBDIVISION_TABLE = "subdivision_table",
   SUBDIVISION = "subdivision",
@@ -38,6 +40,7 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.CREATE_EMPLOYEE]: "/create_employee",
   [AppRoutes.EMPLOYEE_TABLE]: "/employee_table",
   [AppRoutes.EMPLOYEE_HIERARCHY]: "/employee_hierarchy",
+  [AppRoutes.UPDATE_EMPLOYEE]: "/update_employee",
   [AppRoutes.WEIGHTS_SETTINGS]: "/weights_settings",
   [AppRoutes.SUBDIVISION_TABLE]: "/subdivision_table",
   [AppRoutes.SUBDIVISION]: "/subdivision",
@@ -88,6 +91,10 @@ export const routeConfig: RouteObject[] = [
       {
         path: `${RoutePath.update_subdivision}/:subdivisionId`,
         element: <UpdateSubdivisionPage />,
+      },
+      {
+        path: `${RoutePath.update_employee}/:employeeId`,
+        element: <UpdateEmployeePage />,
       },
       {
         path: RoutePath.employee_hierarchy,
