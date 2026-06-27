@@ -9,7 +9,7 @@ const getAvgSubdivisionTopsisScore = (subdivision?: Subdivision) => {
 
   return (
     employeesWithTopsis.reduce((prev, curr) => prev + curr.topsisScore, 0) /
-    employeesWithTopsis.length
+    (employeesWithTopsis.length || 1)
   );
 };
 
